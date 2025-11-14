@@ -21,8 +21,8 @@ public class Coordonnee {
     private Long id;
 
     @Column(nullable = false)
-    private String longitude;
+    private Float longitude;
 
     @Column(nullable = false)
-    private String latitude;
+    private Float latitude;
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-14T15:29:11+0100",
+    date = "2025-11-14T16:22:51+0100",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.1 (Oracle Corporation)"
 )
 @Component
@@ -22,8 +22,12 @@ public class CoordonneeMapperImpl implements CoordonneeMapper {
         CoordonneeDTO coordonneeDTO = new CoordonneeDTO();
 
         coordonneeDTO.setId( Entity.getId() );
-        coordonneeDTO.setLongitude( Entity.getLongitude() );
-        coordonneeDTO.setLatitude( Entity.getLatitude() );
+        if ( Entity.getLongitude() != null ) {
+            coordonneeDTO.setLongitude( String.valueOf( Entity.getLongitude() ) );
+        }
+        if ( Entity.getLatitude() != null ) {
+            coordonneeDTO.setLatitude( String.valueOf( Entity.getLatitude() ) );
+        }
 
         return coordonneeDTO;
     }
@@ -37,8 +41,12 @@ public class CoordonneeMapperImpl implements CoordonneeMapper {
         Coordonnee coordonnee = new Coordonnee();
 
         coordonnee.setId( dto.getId() );
-        coordonnee.setLongitude( dto.getLongitude() );
-        coordonnee.setLatitude( dto.getLatitude() );
+        if ( dto.getLongitude() != null ) {
+            coordonnee.setLongitude( Float.parseFloat( dto.getLongitude() ) );
+        }
+        if ( dto.getLatitude() != null ) {
+            coordonnee.setLatitude( Float.parseFloat( dto.getLatitude() ) );
+        }
 
         return coordonnee;
     }
