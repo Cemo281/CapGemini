@@ -28,8 +28,8 @@ public class TerrainController {
         terrain.setQuantite(quantite);
         terrain.setDescription(description);
         Coordonnee coordonnee = new Coordonnee();
-        coordonnee.setLongitude(0.47F);
-        coordonnee.setLatitude(0.48F);
+        coordonnee.setLongitude(String.valueOf(0.47F));
+        coordonnee.setLatitude(String.valueOf(0.48F));
         terrain.setCoordonnees(coordonnee);
         return(terrainService.addTerrain(terrain));
 

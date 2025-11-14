@@ -19,11 +19,21 @@ public class CoordonneeController {
         this.coordonneeService = coordonneeService;
     }
 
-    @GetMapping("/add")
-    public Coordonnee createCoordonnee(@RequestParam Float latitude,@RequestParam Float longitude){
+    // Création d'une coordonnée
+    @PostMapping("/add")
+    public ResponseEntity<Coordonnee> createCoordonnee(@RequestBody CoordonneeDTO dto){
         Coordonnee coordonnee = new Coordonnee();
-        coordonnee.setLatitude(latitude);
-        coordonnee.setLongitude(longitude);
-        return(coordonneeService.addCoordonnee(coordonnee));
+        coordonnee.setLatitude(dto.getLatitude());  // si ta colonne est String, sinon dto.getLatitudeDouble()
+        coordonnee.setLongitude(dto.getLongitude());
+
+        Coordonnee saved = coordonneeService.addCoordonnee(coordonnee);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    // Récupérer toutes les coordonnées
+    @GetMapping
+    public List<Coordonnee> getAllCoordonnees() {
+        return coordonneeService.getAllCoordonnees();
     }
 }
+
