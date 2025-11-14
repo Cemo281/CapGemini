@@ -1,4 +1,4 @@
-import { Terrain } from './Terrain';
+import { TerrainDTO } from './TerrainDTO';
 
 export interface UtilisateurDTO {
   id: number;
@@ -6,5 +6,5 @@ export interface UtilisateurDTO {
   email: string;
   password: string;
   userName: string;
-  terrains: Terrain[];
+  terrains: TerrainDTO[];
 }

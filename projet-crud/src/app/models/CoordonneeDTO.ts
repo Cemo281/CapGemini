@@ -1,4 +1,4 @@
-export interface Coordonnee {
+export interface CoordonneeDTO {
   id: number;
   latitude: number;
   longitude: number;
