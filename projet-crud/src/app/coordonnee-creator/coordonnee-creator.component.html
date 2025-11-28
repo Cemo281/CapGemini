@@ -1,0 +1,39 @@
+<form [formGroup]="coordonneeForm" (ngSubmit)="onSubmit()">
+
+  <h3>Créer une nouvelle Coordonnée</h3>
+
+  <div>
+    <label for="latitude">Latitude :</label>
+    <input
+      id="latitude"
+      type="number"
+      formControlName="latitude"
+      placeholder="Ex: 48.8584"
+      step="any"
+    >
+    <div class="error-message" *ngIf="f['latitude'].invalid && (f['latitude'].dirty || f['latitude'].touched)">
+      <small *ngIf="f['latitude'].errors?.['required']">La latitude est requise.</small>
+      <small *ngIf="f['latitude'].errors?.['min'] || f['latitude'].errors?.['max']">Doit être entre -90 et 90.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="longitude">Longitude :</label>
+    <input
+      id="longitude"
+      type="number"
+      formControlName="longitude"
+      placeholder="Ex: 2.2945"
+      step="any"
+    >
+    <div class="error-message" *ngIf="f['longitude'].invalid && (f['longitude'].dirty || f['longitude'].touched)">
+      <small *ngIf="f['longitude'].errors?.['required']">La longitude est requise.</small>
+      <small *ngIf="f['longitude'].errors?.['min'] || f['longitude'].errors?.['max']">Doit être entre -180 et 180.</small>
+    </div>
+  </div>
+
+  <button type="submit">
+    Créer la Coordonnée
+  </button>
+
+</form>

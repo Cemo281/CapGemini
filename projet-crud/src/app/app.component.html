@@ -1,1 +1,19 @@
-<app-utilisateur-list [utilisateurs]="utilisateurs"></app-utilisateur-list>
+<main>
+  <h1>{{ title }}</h1>
+
+  <div class="form-section">
+    <app-coordonnee-creator
+      (submitted)="handleNewCoordData($event)">
+    </app-coordonnee-creator>
+  </div>
+
+  <hr>
+
+  <h2>Liste des Utilisateurs</h2>
+
+  <app-utilisateur-list
+    [utilisateurs]="utilisateurs">
+  </app-utilisateur-list>
+
+  <router-outlet></router-outlet>
+</main>
