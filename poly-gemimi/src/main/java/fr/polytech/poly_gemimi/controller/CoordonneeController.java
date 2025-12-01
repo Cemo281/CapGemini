@@ -2,6 +2,7 @@ package fr.polytech.poly_gemimi.controller;
 
 import fr.polytech.poly_gemimi.dto.CoordonneeDTO;
 import fr.polytech.poly_gemimi.entity.Coordonnee;
+import fr.polytech.poly_gemimi.mapper.CoordonneeMapper;
 import fr.polytech.poly_gemimi.service.CoordonneeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +15,17 @@ import java.util.List;
 public class CoordonneeController {
 
     private final CoordonneeService coordonneeService;
+    private final CoordonneeMapper coordonneeMapper;
 
-    public CoordonneeController(CoordonneeService coordonneeService) {
+    public CoordonneeController(CoordonneeService coordonneeService, CoordonneeMapper coordonneeMapper) {
         this.coordonneeService = coordonneeService;
+        this.coordonneeMapper = coordonneeMapper;
     }
 
     // Création d'une coordonnée
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Coordonnee> createCoordonnee(@RequestBody CoordonneeDTO dto){
-        Coordonnee coordonnee = new Coordonnee();
-        coordonnee.setLatitude(dto.getLatitude());  // si ta colonne est String, sinon dto.getLatitudeDouble()
-        coordonnee.setLongitude(dto.getLongitude());
+        Coordonnee coordonnee=coordonneeMapper.toEntity(dto);
 
         Coordonnee saved = coordonneeService.addCoordonnee(coordonnee);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);

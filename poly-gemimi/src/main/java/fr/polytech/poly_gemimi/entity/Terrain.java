@@ -32,4 +32,5 @@ public class Terrain {
     @ManyToOne
     @JoinColumn(name = "coordonnees_id", nullable = false)
     private Coordonnee coordonnees;
+
 }

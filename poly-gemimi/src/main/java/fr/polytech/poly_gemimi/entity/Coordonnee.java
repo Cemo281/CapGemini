@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "coordonnee")
+@Table(name = "coordonnees")
 @Data
 @Getter
 @Setter

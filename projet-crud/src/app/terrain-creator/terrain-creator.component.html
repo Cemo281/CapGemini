@@ -1,0 +1,20 @@
+<h2>Créer un nouveau Terrain</h2>
+
+<form #terrainForm="ngForm" (ngSubmit)="createTerrain(terrainForm)">
+  <label for="nom">Nom :</label>
+  <input id="nom" [(ngModel)]="nom" name="nom" type="text" required />
+
+  <label for="qua">Quantité :</label>
+  <input id="qua" [(ngModel)]="quantite" name="quantite" type="text" required />
+
+  <label for="desc">Description :</label>
+  <input id="desc" [(ngModel)]="description" name="description" type="text" required />
+
+  <label for="lat">Latitude :</label>
+  <input id="lat" [(ngModel)]="latitude" type="text" name="latitude" required />
+
+  <label for="long">Longitude :</label>
+  <input id="long" [(ngModel)]="longitude" type="text" name="longitude" required />
+
+  <button type="submit">Créer</button>
+</form>

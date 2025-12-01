@@ -1,9 +1,9 @@
 import { CoordonneeDTO } from './CoordonneeDTO';
 
 export interface TerrainDTO {
-  id: number;
+  id?: number;
   nom: string;
-  quantity: number;
+  quantite: number;
   description: string;
-  coordonnee: CoordonneeDTO;
+  coordonnees: CoordonneeDTO;
 }

@@ -1,7 +1,7 @@
 import { TerrainDTO } from './TerrainDTO';
 
 export interface UtilisateurDTO {
-  id: number;
+  id?: number;
   nom: string;
   email: string;
   password: string;
