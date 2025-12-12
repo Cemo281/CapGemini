@@ -1,0 +1,56 @@
+.app-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.coordonnees {
+  display: flex;
+  gap: 10px;
+}
+
+.coordonnees input {
+  flex: 1;
+}
+
+button {
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  background-color: red; /* violet clair similaire à la capture */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #ff10f0;
+}

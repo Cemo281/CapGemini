@@ -1,4 +1,46 @@
-<h2>Liste des Utilisateurs :</h2>
-<ul> @for(utilisateur of utilisateurs; track utilisateur.id)
-{<li>{{ utilisateur.userName}}</li>}
-</ul>
+<div class="table-container">
+  <h2>Liste des Utilisateurs</h2>
+  
+  @if (loading) {
+    <p class="loading">Chargement des utilisateurs...</p>
+  }
+  
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+  
+  @if (!loading && utilisateurs.length === 0 && !error) {
+    <p class="no-data">Aucun utilisateur trouvé</p>
+  }
+  
+  @if (!loading && utilisateurs.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Nom d'utilisateur</th>
+          <th>Rôle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(utilisateur of utilisateurs; track utilisateur.id) {
+        <tr>
+          <td>{{ utilisateur.id }}</td>
+          <td>{{ utilisateur.nom }}</td>
+          <td>{{ utilisateur.prenom }}</td>
+          <td>{{ utilisateur.mail }}</td>
+          <td>{{ utilisateur.username }}</td>
+          <td>{{ utilisateur.role }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

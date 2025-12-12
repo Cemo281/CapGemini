@@ -1,1 +1,40 @@
-<p>coordonnee-list works!</p>
+<div class="table-container">
+  <h2>Liste des Coordonnées</h2>
+  
+  @if (loading) {
+    <p class="loading">Chargement des coordonnées...</p>
+  }
+  
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+  
+  @if (!loading && coordonnees.length === 0 && !error) {
+    <p class="no-data">Aucune coordonnée trouvée</p>
+  }
+  
+  @if (!loading && coordonnees.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(coordonnee of coordonnees; track coordonnee.id) {
+        <tr>
+          <td>{{ coordonnee.id }}</td>
+          <td>{{ coordonnee.latitude }}</td>
+          <td>{{ coordonnee.longitude }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteCoordonnee(coordonnee.id)">Supprimer</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

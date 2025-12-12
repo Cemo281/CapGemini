@@ -43,4 +43,7 @@ public class Utilisateur {
         inverseJoinColumns = @JoinColumn(name = "terrain_id")
     )
     private Set<Terrain> terrains;
+
+    @Column(nullable = false)
+    private String role = "USER"; //USER est le par défaut on peut avoir ADMIN également
 }

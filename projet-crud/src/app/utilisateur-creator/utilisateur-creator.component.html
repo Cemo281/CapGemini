@@ -1,0 +1,28 @@
+<div class="app-container">
+  <h2>Créer un Utilisateur</h2>
+
+  <form #utilisateurForm="ngForm" (ngSubmit)="createUtilisateur(utilisateurForm)">
+    <label for="nom">Nom :</label>
+    <input id="nom" placeholder="Nom" [(ngModel)]="nom" name="nom" type="text" required />
+
+    <label for="prenom">Prénom :</label>
+    <input id="prenom" placeholder="Prénom" [(ngModel)]="prenom" name="prenom" type="text" />
+
+    <label for="mail">Email :</label>
+    <input id="mail" placeholder="Email" [(ngModel)]="mail" name="mail" type="email" required />
+
+    <label for="password">Mot de passe :</label>
+    <input id="password" placeholder="Mot de passe" [(ngModel)]="password" name="password" type="password" required />
+
+    <label for="username">Nom d'utilisateur :</label>
+    <input id="username" placeholder="Nom d'utilisateur" [(ngModel)]="username" name="username" type="text" required />
+
+    <label for="role">Rôle :</label>
+    <select id="role" [(ngModel)]="role" name="role" required>
+      <option value="USER">USER</option>
+      <option value="ADMIN">ADMIN</option>
+    </select>
+
+    <button type="submit">Créer</button>
+  </form>
+</div>

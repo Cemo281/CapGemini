@@ -1,1 +1,13 @@
-<p>coordonnee-creator works!</p>
+<div class="app-container">
+  <h2>Créer une Coordonnée</h2>
+
+  <form #coordonneeForm="ngForm" (ngSubmit)="createCoordonnee(coordonneeForm)">
+    <label for="lat">Latitude :</label>
+    <input id="lat" placeholder="Latitude" [(ngModel)]="latitude" type="text" name="latitude" required />
+
+    <label for="long">Longitude :</label>
+    <input id="long" placeholder="Longitude" [(ngModel)]="longitude" type="text" name="longitude" required />
+
+    <button type="submit">Créer</button>
+  </form>
+</div>

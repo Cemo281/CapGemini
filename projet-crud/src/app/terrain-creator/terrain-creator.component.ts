@@ -37,11 +37,14 @@ export class TerrainCreatorComponent {
     this.terrainService.createTerrain(newTerrain).subscribe({
       next: (terrain) => {
         console.log('Terrain créé:', terrain);
+        alert(`✓ Terrain créé avec succès: ${terrain.nom}`);
         this.terrainCreated.emit(terrain);
         form.resetForm();
+        this.resetForm();
       },
       error: (err) => {
         console.error('Erreur lors de la création du terrain', err);
+        alert(`✗ Erreur lors de la création: ${err.message}`);
       }
     });
   }

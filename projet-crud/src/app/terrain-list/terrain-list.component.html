@@ -1,1 +1,46 @@
-<p>terrain-list works!</p>
+<div class="table-container">
+  <h2>Liste des Terrains</h2>
+  
+  @if (loading) {
+    <p class="loading">Chargement des terrains...</p>
+  }
+  
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+  
+  @if (!loading && terrains.length === 0 && !error) {
+    <p class="no-data">Aucun terrain trouvé</p>
+  }
+  
+  @if (!loading && terrains.length > 0) {
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Quantité</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(terrain of terrains; track terrain.id) {
+        <tr>
+          <td>{{ terrain.id }}</td>
+          <td>{{ terrain.nom }}</td>
+          <td>{{ terrain.description }}</td>
+          <td>{{ terrain.quantite }}</td>
+          <td>{{ terrain.coordonnees.latitude }}</td>
+          <td>{{ terrain.coordonnees.longitude }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteTerrain(terrain.id)">Supprimer</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

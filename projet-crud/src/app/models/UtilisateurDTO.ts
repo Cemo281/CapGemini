@@ -3,8 +3,10 @@ import { TerrainDTO } from './TerrainDTO';
 export interface UtilisateurDTO {
   id?: number;
   nom: string;
-  email: string;
+  prenom?: string;
+  mail: string;
   password: string;
-  userName: string;
-  terrains: TerrainDTO[];
+  username: string;
+  terrains?: TerrainDTO[];
+  role?: string;
 }
