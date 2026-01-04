@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="auth-form">
+  <h2>Connexion</h2>
+
+  <label for="username">Nom d'utilisateur</label>
+  <input id="username" formControlName="username" autocomplete="username" />
+  <div class="error" *ngIf="username?.touched && username?.invalid">
+    Nom d'utilisateur requis.
+  </div>
+
+  <label for="password">Mot de passe</label>
+  <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+  <div class="error" *ngIf="password?.touched && password?.invalid">
+    Mot de passe requis (min 4 caractères).
+  </div>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+
+  <button type="submit" [disabled]="loading">
+    <span *ngIf="!loading">Se connecter</span>
+    <span *ngIf="loading">Connexion...</span>
+  </button>
+</form>
