@@ -17,7 +17,7 @@ import 'leaflet/dist/leaflet.css';
 })
 export class MapComponent implements OnInit {
   @ViewChild('map') mapElement!: ElementRef;
-  
+
   private map!: L.Map;
   private coordMarkers: L.Marker[] = [];
   coordinates: CoordonneeDTO[] = [];
@@ -33,10 +33,10 @@ export class MapComponent implements OnInit {
   private initializeMap(): void {
     // Default center (Paris)
     const defaultCenter: [number, number] = [48.8566, 2.3522];
-    
+
     setTimeout(() => {
       this.map = L.map('map').setView(defaultCenter, 13);
-      
+
       // Add OpenStreetMap tiles
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
@@ -76,14 +76,14 @@ export class MapComponent implements OnInit {
     if (this.map && coord.latitude && coord.longitude) {
       const lat = parseFloat(coord.latitude);
       const lng = parseFloat(coord.longitude);
-      
+
       console.log('Parsed coordinates:', lat, lng, 'isNaN:', isNaN(lat), isNaN(lng));
-      
+
       if (!isNaN(lat) && !isNaN(lng)) {
         const marker = L.marker([lat, lng])
           .bindPopup(`<b>${terrainName}</b><br>Lat: ${lat}<br>Lng: ${lng}`)
           .addTo(this.map);
-        
+
         this.coordMarkers.push(marker);
         console.log('Marker added successfully');
       } else {

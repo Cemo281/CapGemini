@@ -1,18 +1,18 @@
 <div class="table-container">
   <h2>Liste des Coordonnées</h2>
-  
+
   @if (loading) {
     <p class="loading">Chargement des coordonnées...</p>
   }
-  
+
   @if (error) {
     <p class="error">{{ error }}</p>
   }
-  
+
   @if (!loading && coordonnees.length === 0 && !error) {
     <p class="no-data">Aucune coordonnée trouvée</p>
   }
-  
+
   @if (!loading && coordonnees.length > 0) {
     <table>
       <thead>

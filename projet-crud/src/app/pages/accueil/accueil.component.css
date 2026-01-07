@@ -1,0 +1,98 @@
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.hero{
+  background: linear-gradient(135deg,#4e9af1 0%, #6dd5fa 100%);
+  color: white;
+  padding: 28px 0;
+}
+
+.brand h1{
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.brand .subtitle{
+  margin: 4px 0 0 0;
+  opacity: 0.95;
+}
+
+.main-nav{
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.main-nav a{
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.main-nav a.active{
+  background: rgba(255,255,255,0.12);
+}
+
+.main-nav a.logout{
+  margin-left: auto;
+  background: rgba(255,255,255,0.08);
+}
+
+.main-content{
+  padding: 28px 0;
+}
+
+.hero-cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card{
+  display: block;
+  background: white;
+  border-radius: 10px;
+  padding: 18px;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.card .icon{
+  font-size: 26px;
+}
+
+.card h3{
+  font-weight: bold;
+}
+
+.list-section h2{
+  margin: 0 0 12px 0;
+  font-weight: bold;
+}
+
+.site-footer{
+  border-top: 1px solid #eee;
+  padding: 12px 0;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width:600px){
+  .brand h1{font-size:22px}
+  .main-nav{flex-wrap:wrap}
+}

@@ -3,11 +3,12 @@ import { CoordonneeDTO } from '../../models/CoordonneeDTO';
 import { CoordonneeService } from '../../services/coordonnee-service.service';
 import { CoordonneeCreatorComponent } from '../../coordonnee-creator/coordonnee-creator.component';
 import { CoordonneeListComponent } from '../../coordonnee-list/coordonnee-list.component';
+import {RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-coordonnees',
   standalone: true,
-  imports: [CoordonneeCreatorComponent, CoordonneeListComponent],
+  imports: [CoordonneeCreatorComponent, CoordonneeListComponent, RouterLinkActive],
   templateUrl: './coordonnees.component.html',
   styleUrl: './coordonnees.component.css'
 })

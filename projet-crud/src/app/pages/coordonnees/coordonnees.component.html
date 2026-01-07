@@ -1,2 +1,29 @@
-<app-coordonnee-creator (coordonneeCreated)="addCoordonnee($event)"></app-coordonnee-creator>
-<app-coordonnee-list></app-coordonnee-list>
+<header class="hero">
+  <div class="container">
+    <div class="brand">
+      <h1>PolyGEMIMI</h1>
+      <p class="subtitle">Gestion des terrains, coordonnées et utilisateurs</p>
+    </div>
+
+    <nav class="main-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/terrains" routerLinkActive="active">Terrains</a>
+      <a routerLink="/coordonnees" routerLinkActive="active">Coordonnées</a>
+      <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
+      <a routerLink="/map" routerLinkActive="active">Carte</a>
+      <a routerLink="/login" class="logout">Se déconnecter</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container main-content">
+  <section class="list-section">
+    <h2>Liste des Coordonnées</h2>
+    <app-coordonnee-creator (coordonneeCreated)="addCoordonnee($event)"></app-coordonnee-creator>
+    <app-coordonnee-list></app-coordonnee-list>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">© PolyGEMIMI — Projet de démonstration</div>
+</footer>

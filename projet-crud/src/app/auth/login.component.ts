@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router, RouterLinkActive} from '@angular/router';
 import { AuthService } from './auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.component.html'
+  imports: [CommonModule, FormsModule, RouterLinkActive],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
 export class LoginComponent {
   username = '';
@@ -24,7 +25,7 @@ export class LoginComponent {
     this.auth.login(this.username, this.password).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/utilisateurs']);
+        this.router.navigate(['']);
       },
       error: (err) => {
         this.loading = false;
