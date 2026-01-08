@@ -27,7 +27,19 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         
         System.out.println("User found: " + utilisateur.getUsername() + " with role: " + utilisateur.getRole());
-        String role = utilisateur.getRole() != null ? "ROLE_" + utilisateur.getRole() : "ROLE_USER";
+        String rawRole = utilisateur.getRole();
+        String role;
+        if (rawRole != null) {
+            String r = rawRole.trim().toUpperCase();
+            if ("ADMIN".equals(r) || "USER".equals(r)) {
+                role = "ROLE_" + r;
+            } else {
+                System.out.println("Warning: invalid role '" + rawRole + "' for user " + utilisateur.getUsername() + ", defaulting to USER");
+                role = "ROLE_USER";
+            }
+        } else {
+            role = "ROLE_USER";
+        }
         Collection<? extends GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
         return new User(utilisateur.getUsername(), utilisateur.getPassword(), authorities);
     }
