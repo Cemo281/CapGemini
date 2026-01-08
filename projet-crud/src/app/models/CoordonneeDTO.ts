@@ -1,5 +1,5 @@
 export interface CoordonneeDTO {
-  id: number;
-  latitude: number;
-  longitude: number;
+  id?: number;
+  latitude: string;
+  longitude: string;
 }

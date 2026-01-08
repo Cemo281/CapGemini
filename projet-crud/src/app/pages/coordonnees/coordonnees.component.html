@@ -1,0 +1,11 @@
+<app-coordonnee-list (addRequest)="openModal()" (editRequest)="openModal($event)"></app-coordonnee-list>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ selectedCoordonnee ? 'Modifier la Coordonnée' : 'Nouvelle Coordonnée' }}</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    <app-coordonnee-creator *ngIf="showModal" [coordonneeToEdit]="selectedCoordonnee" (coordonneeCreated)="onCoordonneeCreated($event)"></app-coordonnee-creator>
+  </div>
+</div>

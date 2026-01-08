@@ -1,0 +1,33 @@
+<h2 style="margin-bottom: 30px; text-align: center;">
+  Bienvenue, {{ username$ | async }} !<span style="color: #667eea;">({{ role$ | async }}) </span> 👋
+</h2>
+
+<div class="hero-cards">
+  <a class="card-link" routerLink="/terrains">
+    <div class="icon">⚽</div>
+    <h3>Terrains</h3>
+    <p>Voir et créer des terrains</p>
+  </a>
+
+  <a class="card-link" routerLink="/coordonnees">
+    <div class="icon">📍</div>
+    <h3>Coordonnées</h3>
+    <p>Gérer les coordonnées</p>
+  </a>
+
+  <a class="card-link" routerLink="/utilisateurs">
+    <div class="icon">👥</div>
+    <h3>Utilisateurs</h3>
+    <p>Consulter et modifier les utilisateurs</p>
+  </a>
+</div>
+
+<section class="map-section" style="margin-bottom: 32px;">
+    <h2>Carte des Terrains</h2>
+    <app-map #mapRef></app-map>
+    <div class="map-controls" style="margin-top: 20px;">
+      <button (click)="fitBounds()" class="btn-primary">
+        🗺️ Centrer sur tous les terrains
+      </button>
+    </div>
+</section>

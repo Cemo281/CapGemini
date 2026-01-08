@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-11-14T16:43:22+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.1 (Oracle Corporation)"
+    date = "2026-01-07T20:40:46+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251118-1623, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class UtilisateurMapperImpl implements UtilisateurMapper {
@@ -30,12 +30,13 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         UtilisateurDTO utilisateurDTO = new UtilisateurDTO();
 
         utilisateurDTO.setId( utilisateur.getId() );
-        utilisateurDTO.setNom( utilisateur.getNom() );
-        utilisateurDTO.setPrenom( utilisateur.getPrenom() );
         utilisateurDTO.setMail( utilisateur.getMail() );
+        utilisateurDTO.setNom( utilisateur.getNom() );
         utilisateurDTO.setPassword( utilisateur.getPassword() );
-        utilisateurDTO.setUsername( utilisateur.getUsername() );
+        utilisateurDTO.setPrenom( utilisateur.getPrenom() );
+        utilisateurDTO.setRole( utilisateur.getRole() );
         utilisateurDTO.setTerrains( terrainSetToTerrainDTOSet( utilisateur.getTerrains() ) );
+        utilisateurDTO.setUsername( utilisateur.getUsername() );
 
         return utilisateurDTO;
     }
@@ -49,12 +50,13 @@ public class UtilisateurMapperImpl implements UtilisateurMapper {
         Utilisateur utilisateur = new Utilisateur();
 
         utilisateur.setId( dto.getId() );
-        utilisateur.setNom( dto.getNom() );
-        utilisateur.setPrenom( dto.getPrenom() );
         utilisateur.setMail( dto.getMail() );
+        utilisateur.setNom( dto.getNom() );
         utilisateur.setPassword( dto.getPassword() );
-        utilisateur.setUsername( dto.getUsername() );
+        utilisateur.setPrenom( dto.getPrenom() );
+        utilisateur.setRole( dto.getRole() );
         utilisateur.setTerrains( terrainDTOSetToTerrainSet( dto.getTerrains() ) );
+        utilisateur.setUsername( dto.getUsername() );
 
         return utilisateur;
     }

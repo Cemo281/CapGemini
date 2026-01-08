@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CoordonneeRepository extends JpaRepository<Coordonnee, Long> {
-
+    java.util.Optional<Coordonnee> findByLatitudeAndLongitude(String latitude, String longitude);
 }

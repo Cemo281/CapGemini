@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Modifier l\'Utilisateur' : 'Créer un Utilisateur' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <label for="nom">Nom :</label>
+    <input id="nom" placeholder="Nom" formControlName="nom" type="text" />
+    @if (form.get('nom')?.invalid && form.get('nom')?.touched) {
+      <div class="error-text">{{ getErrorMessage('nom') }}</div>
+    }
+
+    <label for="prenom">Prénom :</label>
+    <input id="prenom" placeholder="Prénom" formControlName="prenom" type="text" />
+
+    <label for="mail">Email :</label>
+    <input id="mail" placeholder="Email" formControlName="mail" type="email" />
+    @if (form.get('mail')?.invalid && form.get('mail')?.touched) {
+      <div class="error-text">{{ getErrorMessage('mail') }}</div>
+    }
+
+    <label for="password">Mot de passe :</label>
+    <input id="password" [placeholder]="isEditMode ? 'Laisser vide pour ne pas changer' : 'Mot de passe'" formControlName="password" type="password" />
+    @if (form.get('password')?.invalid && form.get('password')?.touched) {
+      <div class="error-text">{{ getErrorMessage('password') }}</div>
+    }
+    @if (!isEditMode) {
+      <small style="display: block; margin-top: 5px; color: #666;">Min. 8 caractères: 1 majuscule, 1 minuscule, 1 chiffre</small>
+    }
+
+    <label for="username">Nom d'utilisateur :</label>
+    <input id="username" placeholder="Nom d'utilisateur" formControlName="username" type="text" />
+    @if (form.get('username')?.invalid && form.get('username')?.touched) {
+      <div class="error-text">{{ getErrorMessage('username') }}</div>
+    }
+
+    <label for="role">Rôle :</label>
+    <select id="role" formControlName="role">
+      <option value="USER">USER</option>
+      <option value="ADMIN">ADMIN</option>
+    </select>
+
+    <button type="submit" [disabled]="form.invalid">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</button>
+
+    @if (errorMessage) {
+      <div class="error-msg" style="margin-top: 15px; color: var(--danger-color); font-weight: 500; text-align: center; padding: 10px; border: 1px solid var(--danger-color); border-radius: 4px; background-color: rgba(217, 48, 37, 0.05);">
+        {{ errorMessage }}
+      </div>
+    }
+  </form>
+</div>

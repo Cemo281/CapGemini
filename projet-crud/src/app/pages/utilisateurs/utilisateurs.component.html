@@ -1,0 +1,11 @@
+<app-utilisateur-list (addRequest)="openModal()" (editRequest)="openModal($event)"></app-utilisateur-list>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ selectedUtilisateur ? 'Modifier l\'Utilisateur' : 'Nouvel Utilisateur' }}</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    <app-utilisateur-creator *ngIf="showModal" [utilisateurToEdit]="selectedUtilisateur" (utilisateurCreated)="onUtilisateurCreated($event)"></app-utilisateur-creator>
+  </div>
+</div>

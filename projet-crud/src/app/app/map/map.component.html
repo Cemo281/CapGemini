@@ -1,0 +1,27 @@
+<div class="map-container">
+  <div *ngIf="loading" class="loading">Loading map and coordinates...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div class="map-wrapper" [class.expanded]="isExpanded">
+    <div id="map"></div>
+    <button class="map-overlay-btn" (click)="toggleExpand()" title="{{ isExpanded ? 'Réduire' : 'Agrandir' }}">
+      ⛶
+    </button>
+  </div>
+  
+  <div class="coordinates-info">
+    <h3>Coordonnées des Terrains ({{ mapItems.length }})</h3>
+    <ul *ngIf="mapItems.length > 0; else noCoords">
+      <li *ngFor="let item of mapItems">
+        <div class="coord-details">
+          <span class="terrain-name"><strong>{{ item.terrainName }}</strong></span>
+          <span class="lat-lng">Lat: {{ item.coord.latitude }}, Lng: {{ item.coord.longitude }}</span>
+        </div>
+        <button class="focus-btn" (click)="focusOnCoord(item.coord)" title="Voir sur la carte">🔍</button>
+      </li>
+    </ul>
+    <ng-template #noCoords>
+      <p>Aucune coordonnée disponible</p>
+    </ng-template>
+  </div>
+</div>

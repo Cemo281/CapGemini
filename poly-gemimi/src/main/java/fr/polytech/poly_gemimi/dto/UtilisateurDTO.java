@@ -17,4 +17,5 @@ public class UtilisateurDTO {
     private String password;
     private String username;
     private Set<TerrainDTO> terrains;
+    private String role;
 }
