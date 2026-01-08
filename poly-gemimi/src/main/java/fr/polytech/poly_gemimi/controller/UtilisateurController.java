@@ -6,6 +6,7 @@ import fr.polytech.poly_gemimi.mapper.UtilisateurMapper;
 import fr.polytech.poly_gemimi.service.UtilisateurService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class UtilisateurController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UtilisateurDTO> createUser(@RequestBody UtilisateurDTO dto){
         Utilisateur user = utilisateurMapper.toEntity(dto);
         Utilisateur saved = utilisateurService.addUtilisateur(user);
@@ -46,12 +48,14 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUtilisateur(@PathVariable Long id) {
         utilisateurService.deleteUtilisateur(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UtilisateurDTO> updateUtilisateur(@PathVariable Long id, @RequestBody UtilisateurDTO dto) {
         Utilisateur utilisateur = utilisateurMapper.toEntity(dto);
         utilisateurService.updateUtilisateur(id, utilisateur);

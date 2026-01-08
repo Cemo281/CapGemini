@@ -1,0 +1,9 @@
+:host { display:block; min-height: calc(100vh - 60px); }
+.login-wrapper { display:flex; align-items:center; justify-content:center; padding: 40px 16px; }
+.login-card { width: 100%; max-width: 420px; background: var(--card); border-radius: 12px; padding: 28px; box-shadow: var(--shadow); }
+.login-card h2 { margin: 0 0 12px 0; color: var(--primary-dark); }
+form { display:flex; flex-direction:column; gap:12px; }
+input[type="text"], input[type="password"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); }
+button[type="submit"] { padding: 10px 14px; border-radius:8px; background: var(--primary); color: white; border:none; font-weight:700; }
+.login-links { margin-top:8px; font-size:13px; color:var(--muted); }
+.error { margin-top:8px; }

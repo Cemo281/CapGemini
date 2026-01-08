@@ -22,14 +22,20 @@ public class CoordonneeService {
     }
 
     public void updateCoordonnee(Long id, Coordonnee coordonnee) {
-        Coordonnee existingCoordonnee = coordonneeRepository.findById(id).orElseThrow(() -> new RuntimeException("Coordonnee not found"));
+        Coordonnee existingCoordonnee = coordonneeRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Coordonnee not found"));
+        if (coordonnee.getLatitude() == null || coordonnee.getLatitude().isBlank()) {
+            throw new fr.polytech.poly_gemimi.exception.BadRequestException("Latitude is required");
+        }
+        if (coordonnee.getLongitude() == null || coordonnee.getLongitude().isBlank()) {
+            throw new fr.polytech.poly_gemimi.exception.BadRequestException("Longitude is required");
+        }
         existingCoordonnee.setLatitude(coordonnee.getLatitude());
         existingCoordonnee.setLongitude(coordonnee.getLongitude());
         coordonneeRepository.save(existingCoordonnee);
     }
 
     public Coordonnee getCoordonnee(Long id) {
-        return coordonneeRepository.findById(id).orElseThrow(() -> new RuntimeException("Coordonnee not found"));
+        return coordonneeRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Coordonnee not found"));
     }
 
     public java.util.List<Coordonnee> getAllCoordonnees() {

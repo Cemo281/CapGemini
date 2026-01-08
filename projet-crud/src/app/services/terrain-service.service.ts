@@ -36,6 +36,14 @@ export class TerrainService {
     );
   }
 
+  updateTerrain(id: number, terrain: TerrainDTO) {
+    console.log('Sending PUT request to', `${this.apiUrl}/${id}`, 'with data:', terrain);
+    return this.http.put<TerrainDTO>(`${this.apiUrl}/${id}`, terrain).pipe(
+      tap(response => console.log('PUT response:', response)),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {

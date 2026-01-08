@@ -6,7 +6,7 @@
     </div>
 
     <nav class="main-nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
       <a routerLink="/terrains" routerLinkActive="active">Terrains</a>
       <a routerLink="/coordonnees" routerLinkActive="active">Coordonnées</a>
       <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
@@ -19,7 +19,7 @@
 <main class="container main-content">
   <section class="list-section">
     <h2>Liste des Coordonnées</h2>
-    <app-coordonnee-creator (coordonneeCreated)="addCoordonnee($event)"></app-coordonnee-creator>
+    <app-coordonnee-creator *ngIf="auth.isAdmin()" (coordonneeCreated)="addCoordonnee($event)"></app-coordonnee-creator>
     <app-coordonnee-list></app-coordonnee-list>
   </section>
 </main>

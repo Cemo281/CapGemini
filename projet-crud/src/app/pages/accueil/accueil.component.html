@@ -6,7 +6,7 @@
     </div>
 
     <nav class="main-nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/accueil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
       <a routerLink="/terrains" routerLinkActive="active">Terrains</a>
       <a routerLink="/coordonnees" routerLinkActive="active">Coordonnées</a>
       <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
@@ -44,8 +44,11 @@
   </section>
 
   <section class="list-section">
-    <h2>Utilisateurs récents</h2>
-    <app-utilisateur-list></app-utilisateur-list>
+    <h2>Connexion active</h2>
+    <p *ngIf="auth.isAuthenticated()">Connecté en tant que <strong>{{ auth.getUsername() }} </strong>
+      <span class="text-muted">({{ auth.getRole() }})</span>
+    </p>
+    <p *ngIf="!auth.isAuthenticated()">Vous n'êtes pas connecté</p>
   </section>
 </main>
 

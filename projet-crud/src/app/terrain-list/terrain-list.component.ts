@@ -2,11 +2,13 @@ import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } fro
 import { TerrainDTO } from '../models/TerrainDTO';
 import { TerrainService } from '../services/terrain-service.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-terrain-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './terrain-list.component.html',
   styleUrl: './terrain-list.component.css'
 })
@@ -14,9 +16,11 @@ export class TerrainListComponent implements OnInit {
   terrains: TerrainDTO[] = [];
   loading = true;
   error: string | null = null;
+  editingId: number | null = null;
+  editing: TerrainDTO | null = null;
   @Output() terrainDeleted = new EventEmitter<number>();
 
-  constructor(private terrainService: TerrainService) {}
+  constructor(private terrainService: TerrainService, public auth: AuthService) {}
 
   ngOnInit() {
     console.log('TerrainListComponent initialized, calling loadTerrains()');
@@ -39,6 +43,31 @@ export class TerrainListComponent implements OnInit {
         console.error('Error loading terrains:', err);
         this.error = 'Failed to load terrains: ' + err.message;
         this.loading = false;
+      }
+    });
+  }
+
+  startEdit(terrain: TerrainDTO) {
+    this.editingId = terrain.id || null;
+    this.editing = { ...terrain, coordonnees: { ...terrain.coordonnees } } as TerrainDTO;
+  }
+
+  cancelEdit() {
+    this.editingId = null;
+    this.editing = null;
+  }
+
+  saveEdit(id: number | undefined) {
+    if (!this.editing || id === undefined) return;
+    this.terrainService.updateTerrain(id, this.editing).subscribe({
+      next: (updated) => {
+        console.log('Terrain mis à jour', updated);
+        this.cancelEdit();
+        this.loadTerrains();
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour', err);
+        this.error = 'Failed to update: ' + err.message;
       }
     });
   }

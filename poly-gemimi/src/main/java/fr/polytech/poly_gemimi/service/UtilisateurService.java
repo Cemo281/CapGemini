@@ -22,14 +22,24 @@ public class UtilisateurService {
     }
 
     public void updateUtilisateur(Long id, Utilisateur utilisateur) {
-        Utilisateur existingUtilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new RuntimeException("Utilisateur not found"));
+        Utilisateur existingUtilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Utilisateur not found"));
         existingUtilisateur.setNom(utilisateur.getNom());
+        existingUtilisateur.setPrenom(utilisateur.getPrenom());
         existingUtilisateur.setMail(utilisateur.getMail());
+        existingUtilisateur.setUsername(utilisateur.getUsername());
+        // Update role if provided
+        if (utilisateur.getRole() != null) {
+            existingUtilisateur.setRole(utilisateur.getRole());
+        }
+        // Update password only if a new one was provided
+        if (utilisateur.getPassword() != null && !utilisateur.getPassword().isEmpty()) {
+            existingUtilisateur.setPassword(utilisateur.getPassword());
+        }
         utilisateurRepository.save(existingUtilisateur);
     }
 
     public Utilisateur getUtilisateur(Long id) {
-        return utilisateurRepository.findById(id).orElseThrow(() -> new RuntimeException("Utilisateur not found"));
+        return utilisateurRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Utilisateur not found"));
     }
 
     public java.util.List<Utilisateur> getAllUtilisateurs() {

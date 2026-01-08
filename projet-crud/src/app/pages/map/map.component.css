@@ -1,0 +1,24 @@
+.map-container { display: flex; flex-direction: column; min-height: calc(100vh - 120px); padding: 16px; gap: 16px; }
+
+#map { flex: 1; border-radius: 8px; box-shadow: var(--shadow); min-height: 400px; }
+
+.map-controls { display: flex; gap: 8px; }
+
+.map-controls button { padding: 8px 16px; background-color: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.map-controls button:hover { background-color: var(--primary-dark); }
+.map-controls button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+.coordinates-info { background: var(--card); padding: 16px; border-radius: 8px; box-shadow: var(--shadow); max-height: 200px; overflow-y: auto; }
+.coordinates-info h3 { margin-top: 0; font-size: 16px; }
+.coordinates-info ul { list-style: none; padding: 0; margin: 0; }
+.coordinates-info li { padding: 4px 0; font-size: 13px; }
+
+.loading { padding: 12px; background: rgba(77,166,255,0.06); border-radius: 6px; color: var(--primary-dark); }
+.error { padding: 12px; background: #fff0f0; color: #b00020; border-radius: 6px; }
+
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.hero{ background: linear-gradient(135deg,var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 28px 0; }
+
+.brand h1{ margin: 0; font-size: 28px; font-weight: 700; }
+
+.main-nav{ display: flex; gap: 12px; margin-top: 12px; align-items: center; }

@@ -6,11 +6,12 @@ import { CoordonneesComponent } from './pages/coordonnees/coordonnees.component'
 import { UtilisateursComponent } from './pages/utilisateurs/utilisateurs.component';
 import { LoginComponent } from './auth/login.component';
 import { AuthGuard } from './auth/auth.guard';
-import { MapComponent } from './app/map/map.component';
+import { MapComponent } from './pages/map/map.component';
 
 export const routes: Routes = [
   { path : 'login', component: LoginComponent },
-  { path : '', component : AccueilComponent, canActivate: [AuthGuard] },
+  { path : '', redirectTo: 'login', pathMatch: 'full' },
+  { path : 'accueil', component : AccueilComponent, canActivate: [AuthGuard] },
   { path : 'test', component : TestComponent, canActivate: [AuthGuard] },
   { path : 'terrains', component : TerrainsComponent, canActivate: [AuthGuard] },
   { path : 'coordonnees', component : CoordonneesComponent, canActivate: [AuthGuard] },

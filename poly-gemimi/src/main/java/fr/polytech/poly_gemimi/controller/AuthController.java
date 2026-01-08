@@ -9,11 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,7 +32,11 @@ public class AuthController {
             System.out.println("Authentication successful for: " + loginRequest.getUsername());
 
             String token = tokenProvider.generateToken(authentication);
-            return ResponseEntity.ok(new LoginResponse(token, authentication.getName()));
+            String role = authentication.getAuthorities().stream()
+                    .findFirst()
+                    .map(a -> a.getAuthority().replace("ROLE_", ""))
+                    .orElse("USER");
+            return ResponseEntity.ok(new LoginResponse(token, authentication.getName(), role));
         } catch (BadCredentialsException e) {
             System.out.println("Bad credentials for user: " + loginRequest.getUsername());
             return ResponseEntity.status(401).body("Invalid username or password");
@@ -45,5 +45,18 @@ public class AuthController {
             e.printStackTrace();
             return ResponseEntity.status(500).body("Login failed: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<LoginResponse> me(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(401).build();
+        }
+        String username = authentication.getName();
+        String role = authentication.getAuthorities().stream()
+                .findFirst()
+                .map(a -> a.getAuthority().replace("ROLE_", ""))
+                .orElse("USER");
+        return ResponseEntity.ok(new LoginResponse(null, username, role));
     }
 }

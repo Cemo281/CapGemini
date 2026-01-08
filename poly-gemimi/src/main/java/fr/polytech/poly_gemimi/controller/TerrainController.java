@@ -10,6 +10,7 @@ import fr.polytech.poly_gemimi.service.CoordonneeService;
 import fr.polytech.poly_gemimi.service.TerrainService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class TerrainController {
         this.coordonneeService = coordonneeService;}
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TerrainDTO> createTerrain(@RequestBody TerrainDTO dto) {
         CoordonneeDTO coordDto = dto.getCoordonnees();
         Coordonnee coord = coordonneeMapper.toEntity(coordDto);
@@ -58,12 +60,14 @@ public class TerrainController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteTerrain(@PathVariable Long id) {
         terrainService.deleteTerrain(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TerrainDTO> updateTerrain(@PathVariable Long id, @RequestBody TerrainDTO dto) {
         Terrain terrain = terrainMapper.toEntity(dto);
         terrainService.updateTerrain(id, terrain);

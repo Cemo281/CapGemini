@@ -22,14 +22,14 @@ public class TerrainService {
     }
 
     public void updateTerrain(Long id, Terrain terrain) {
-        Terrain existingTerrain = terrainRepository.findById(id).orElseThrow(() -> new RuntimeException("Terrain not found"));
+        Terrain existingTerrain = terrainRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Terrain not found"));
         existingTerrain.setNom(terrain.getNom());
         existingTerrain.setQuantite(terrain.getQuantite());
         terrainRepository.save(existingTerrain);
     }
 
     public Terrain getTerrain(Long id) {
-        return terrainRepository.findById(id).orElseThrow(() -> new RuntimeException("Terrain not found"));
+        return terrainRepository.findById(id).orElseThrow(() -> new fr.polytech.poly_gemimi.exception.ResourceNotFoundException("Terrain not found"));
     }
 
     public java.util.List<Terrain> getAllTerrains() {

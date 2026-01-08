@@ -6,6 +6,7 @@ import fr.polytech.poly_gemimi.mapper.CoordonneeMapper;
 import fr.polytech.poly_gemimi.service.CoordonneeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CoordonneeController {
 
     // Création d'une coordonnée
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CoordonneeDTO> createCoordonnee(@RequestBody CoordonneeDTO dto){
         Coordonnee coordonnee=coordonneeMapper.toEntity(dto);
 

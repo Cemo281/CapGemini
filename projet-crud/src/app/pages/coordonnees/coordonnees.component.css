@@ -1,32 +1,37 @@
-.container {
+.container{
   max-width: 1000px;
-  margin: 20px auto; /* Centrer le conteneur et ajouter une marge supérieure/inférieure */
-  padding: 20px;
-  background: white; /* Fond blanc comme les cartes */
-  border-radius: 10px; /* Rayon de bordure comme les cartes */
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06); /* Ombre comme les cartes */
-  transition: transform 0.12s ease, box-shadow 0.12s ease; /* Transition comme les cartes */
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
-.container:hover {
-  transform: translateY(-6px); /* Effet de survol comme les cartes */
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12); /* Ombre de survol comme les cartes */
+.hero{
+  background: linear-gradient(135deg,#4e9af1 0%, #6dd5fa 100%);
+  color: white;
+  padding: 28px 0;
 }
 
-h1 {
-  margin-top: 0;
-  color: #333;
-  font-weight: bold; /* Rendre le titre plus gras */
+.brand h1{
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-main-nav {
+.brand .subtitle{
+  margin: 4px 0 0 0;
+  opacity: 0.95;
+}
+
+.main-nav{
   display: flex;
   gap: 12px;
   margin-top: 12px;
   align-items: center;
 }
 
-subtitle {
-  margin: 4px 0 0 0;
-  opacity: 0.95;
+.main-nav a{
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 600;
 }

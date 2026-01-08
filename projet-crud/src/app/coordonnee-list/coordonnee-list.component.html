@@ -1,20 +1,14 @@
 <div class="table-container">
   <h2>Liste des Coordonnées</h2>
 
-  @if (loading) {
-    <p class="loading">Chargement des coordonnées...</p>
-  }
+  <p *ngIf="loading" class="loading">Chargement des coordonnées...</p>
 
-  @if (error) {
-    <p class="error">{{ error }}</p>
-  }
+  <p *ngIf="error" class="error">{{ error }}</p>
 
-  @if (!loading && coordonnees.length === 0 && !error) {
-    <p class="no-data">Aucune coordonnée trouvée</p>
-  }
+  <p *ngIf="!loading && coordonnees.length === 0 && !error" class="no-data">Aucune coordonnée trouvée</p>
 
-  @if (!loading && coordonnees.length > 0) {
-    <table>
+
+  <table *ngIf="!loading && coordonnees.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -24,17 +18,22 @@
         </tr>
       </thead>
       <tbody>
-        @for(coordonnee of coordonnees; track coordonnee.id) {
-        <tr>
+        <tr *ngFor="let coordonnee of coordonnees">
           <td>{{ coordonnee.id }}</td>
-          <td>{{ coordonnee.latitude }}</td>
-          <td>{{ coordonnee.longitude }}</td>
+
+          <td *ngIf="editingId !== coordonnee.id">{{ coordonnee.latitude }}</td>
+          <td *ngIf="editingId === coordonnee.id"><input [(ngModel)]="editing!.latitude" name="lat-{{ coordonnee.id }}" /></td>
+
+          <td *ngIf="editingId !== coordonnee.id">{{ coordonnee.longitude }}</td>
+          <td *ngIf="editingId === coordonnee.id"><input [(ngModel)]="editing!.longitude" name="long-{{ coordonnee.id }}" /></td>
+
           <td>
-            <button class="delete-btn" (click)="deleteCoordonnee(coordonnee.id)">Supprimer</button>
+            <button *ngIf="auth.isAdmin() && editingId !== coordonnee.id" class="edit-btn" (click)="startEdit(coordonnee)">Modifier</button>
+            <button *ngIf="auth.isAdmin() && editingId === coordonnee.id" class="save-btn" (click)="saveEdit(coordonnee.id)">Enregistrer</button>
+            <button *ngIf="auth.isAdmin() && editingId === coordonnee.id" class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+            <button *ngIf="auth.isAdmin()" class="delete-btn" (click)="deleteCoordonnee(coordonnee.id)">Supprimer</button>
           </td>
         </tr>
-        }
       </tbody>
-    </table>
-  }
+    </table>    
 </div>

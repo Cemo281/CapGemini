@@ -16,5 +16,27 @@
   </div>
 </header>
 
-<app-terrain-creator *ngIf="auth.isAdmin()" (terrainCreated)="addTerrain($event)"></app-terrain-creator>
-<app-terrain-list></app-terrain-list>
+<div class="map-container">
+  <div *ngIf="loading" class="loading">Loading map and coordinates...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div id="map"></div>
+  
+  <div class="map-controls">
+    <button (click)="fitBounds()" [disabled]="coordinates.length === 0">
+      Fit All Markers
+    </button>
+  </div>
+  
+  <div class="coordinates-info">
+    <h3>Coordinates ({{ coordinates.length }})</h3>
+    <ul *ngIf="coordinates.length > 0; else noCoords">
+      <li *ngFor="let coord of coordinates">
+        Lat: {{ coord.latitude }}, Lng: {{ coord.longitude }}
+      </li>
+    </ul>
+    <ng-template #noCoords>
+      <p>No coordinates available</p>
+    </ng-template>
+  </div>
+</div>

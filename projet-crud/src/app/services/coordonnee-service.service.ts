@@ -36,6 +36,14 @@ export class CoordonneeService {
     );
   }
 
+  updateCoordonnee(id: number, coordonnee: CoordonneeDTO) {
+    console.log('Sending PUT request to', `${this.apiUrl}/${id}`, 'with data:', coordonnee);
+    return this.http.put<CoordonneeDTO>(`${this.apiUrl}/${id}`, coordonnee).pipe(
+      tap(response => console.log('PUT response:', response)),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {

@@ -1,20 +1,13 @@
 <div class="table-container">
   <h2>Liste des Utilisateurs</h2>
   
-  @if (loading) {
-    <p class="loading">Chargement des utilisateurs...</p>
-  }
+  <p *ngIf="loading" class="loading">Chargement des utilisateurs...</p>
   
-  @if (error) {
-    <p class="error">{{ error }}</p>
-  }
+  <p *ngIf="error" class="error">{{ error }}</p>
   
-  @if (!loading && utilisateurs.length === 0 && !error) {
-    <p class="no-data">Aucun utilisateur trouvé</p>
-  }
+  <p *ngIf="!loading && utilisateurs.length === 0 && !error" class="no-data">Aucun utilisateur trouvé</p>
   
-  @if (!loading && utilisateurs.length > 0) {
-    <table>
+  <table *ngIf="!loading && utilisateurs.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -27,20 +20,31 @@
         </tr>
       </thead>
       <tbody>
-        @for(utilisateur of utilisateurs; track utilisateur.id) {
-        <tr>
+        <tr *ngFor="let utilisateur of utilisateurs">
           <td>{{ utilisateur.id }}</td>
-          <td>{{ utilisateur.nom }}</td>
-          <td>{{ utilisateur.prenom }}</td>
-          <td>{{ utilisateur.mail }}</td>
-          <td>{{ utilisateur.username }}</td>
-          <td>{{ utilisateur.role }}</td>
+
+          <td *ngIf="editingId !== utilisateur.id">{{ utilisateur.nom }}</td>
+          <td *ngIf="editingId === utilisateur.id"><input [(ngModel)]="editing!.nom" name="nom-{{ utilisateur.id }}" /></td>
+
+          <td *ngIf="editingId !== utilisateur.id">{{ utilisateur.prenom }}</td>
+          <td *ngIf="editingId === utilisateur.id"><input [(ngModel)]="editing!.prenom" name="prenom-{{ utilisateur.id }}" /></td>
+
+          <td *ngIf="editingId !== utilisateur.id">{{ utilisateur.mail }}</td>
+          <td *ngIf="editingId === utilisateur.id"><input [(ngModel)]="editing!.mail" name="mail-{{ utilisateur.id }}" /></td>
+
+          <td *ngIf="editingId !== utilisateur.id">{{ utilisateur.username }}</td>
+          <td *ngIf="editingId === utilisateur.id"><input [(ngModel)]="editing!.username" name="user-{{ utilisateur.id }}" /></td>
+
+          <td *ngIf="editingId !== utilisateur.id">{{ utilisateur.role }}</td>
+          <td *ngIf="editingId === utilisateur.id"><input [(ngModel)]="editing!.role" name="role-{{ utilisateur.id }}" /></td>
+
           <td>
-            <button class="delete-btn" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
+            <button *ngIf="auth.isAdmin() && editingId !== utilisateur.id" class="edit-btn" (click)="startEdit(utilisateur)">Modifier</button>
+            <button *ngIf="auth.isAdmin() && editingId === utilisateur.id" class="save-btn" (click)="saveEdit(utilisateur.id)">Enregistrer</button>
+            <button *ngIf="auth.isAdmin() && editingId === utilisateur.id" class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+            <button *ngIf="auth.isAdmin()" class="delete-btn" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
           </td>
         </tr>
-        }
       </tbody>
-    </table>
-  }
+    </table>    
 </div>

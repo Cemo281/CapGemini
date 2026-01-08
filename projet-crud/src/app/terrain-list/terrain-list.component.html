@@ -1,20 +1,13 @@
 <div class="table-container">
   <h2>Liste des Terrains</h2>
   
-  @if (loading) {
-    <p class="loading">Chargement des terrains...</p>
-  }
+  <p *ngIf="loading" class="loading">Chargement des terrains...</p>
   
-  @if (error) {
-    <p class="error">{{ error }}</p>
-  }
+  <p *ngIf="error" class="error">{{ error }}</p>
   
-  @if (!loading && terrains.length === 0 && !error) {
-    <p class="no-data">Aucun terrain trouvé</p>
-  }
+  <p *ngIf="!loading && terrains.length === 0 && !error" class="no-data">Aucun terrain trouvé</p>
   
-  @if (!loading && terrains.length > 0) {
-    <table>
+  <table *ngIf="!loading && terrains.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -27,20 +20,31 @@
         </tr>
       </thead>
       <tbody>
-        @for(terrain of terrains; track terrain.id) {
-        <tr>
+        <tr *ngFor="let terrain of terrains">
           <td>{{ terrain.id }}</td>
-          <td>{{ terrain.nom }}</td>
-          <td>{{ terrain.description }}</td>
-          <td>{{ terrain.quantite }}</td>
-          <td>{{ terrain.coordonnees.latitude }}</td>
-          <td>{{ terrain.coordonnees.longitude }}</td>
+
+          <td *ngIf="editingId !== terrain.id">{{ terrain.nom }}</td>
+          <td *ngIf="editingId === terrain.id"><input [(ngModel)]="editing!.nom" name="nom-{{ terrain.id }}" /></td>
+
+          <td *ngIf="editingId !== terrain.id">{{ terrain.description }}</td>
+          <td *ngIf="editingId === terrain.id"><input [(ngModel)]="editing!.description" name="desc-{{ terrain.id }}" /></td>
+
+          <td *ngIf="editingId !== terrain.id">{{ terrain.quantite }}</td>
+          <td *ngIf="editingId === terrain.id"><input type="number" [(ngModel)]="editing!.quantite" name="quant-{{ terrain.id }}" /></td>
+
+          <td *ngIf="editingId !== terrain.id">{{ terrain.coordonnees.latitude }}</td>
+          <td *ngIf="editingId === terrain.id"><input [(ngModel)]="editing!.coordonnees.latitude" name="lat-{{ terrain.id }}" /></td>
+
+          <td *ngIf="editingId !== terrain.id">{{ terrain.coordonnees.longitude }}</td>
+          <td *ngIf="editingId === terrain.id"><input [(ngModel)]="editing!.coordonnees.longitude" name="long-{{ terrain.id }}" /></td>
+
           <td>
-            <button class="delete-btn" (click)="deleteTerrain(terrain.id)">Supprimer</button>
+            <button *ngIf="auth.isAdmin() && editingId !== terrain.id" class="edit-btn" (click)="startEdit(terrain)">Modifier</button>
+            <button *ngIf="auth.isAdmin() && editingId === terrain.id" class="save-btn" (click)="saveEdit(terrain.id)">Enregistrer</button>
+            <button *ngIf="auth.isAdmin() && editingId === terrain.id" class="cancel-btn" (click)="cancelEdit()">Annuler</button>
+            <button *ngIf="auth.isAdmin()" class="delete-btn" (click)="deleteTerrain(terrain.id)">Supprimer</button>
           </td>
         </tr>
-        }
       </tbody>
-    </table>
-  }
+    </table>    
 </div>

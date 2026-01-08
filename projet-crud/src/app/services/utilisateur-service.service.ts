@@ -36,6 +36,14 @@ export class UtilisateurService {
     );
   }
 
+  updateUtilisateur(id: number, utilisateur: UtilisateurDTO) {
+    console.log('Sending PUT request to', `${this.apiUrl}/${id}`, 'with data:', utilisateur);
+    return this.http.put<UtilisateurDTO>(`${this.apiUrl}/${id}`, utilisateur).pipe(
+      tap(response => console.log('PUT response:', response)),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An error occurred';
     if (error.error instanceof ErrorEvent) {

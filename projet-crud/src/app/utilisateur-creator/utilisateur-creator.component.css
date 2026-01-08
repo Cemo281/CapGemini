@@ -1,50 +1,12 @@
-.app-container {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
+.app-container { padding: 16px; border-radius: 10px; background: var(--card); box-shadow: var(--shadow); }
 
-h2 {
-  margin-top: 0;
-  color: #333;
-}
+h2 { margin-top: 0; color: var(--primary-dark); }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+form { display: flex; flex-direction: column; gap: 12px; }
+label { font-weight: 700; color: var(--muted); }
 
-label {
-  font-weight: bold;
-  color: #555;
-}
+input, select { padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
+input:focus, select:focus { box-shadow: 0 0 0 6px rgba(77,166,255,0.06); border-color: var(--primary); }
 
-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-input:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: #45a049;
-}
+button { padding: 10px 16px; background: var(--primary); color: white; border-radius: 8px; border: none; font-weight: 700; }
+button:hover { background: var(--primary-dark); }

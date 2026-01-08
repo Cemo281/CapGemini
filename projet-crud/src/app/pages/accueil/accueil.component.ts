@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { UtilisateurListComponent } from '../../utilisateur-list/utilisateur-list.component';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [UtilisateurListComponent, RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './accueil.component.html',
-  styleUrl: './accueil.component.css'
+  styleUrls: ['./accueil.component.css']
 })
-export class AccueilComponent {
+export class AccueilComponent implements OnInit {
+  constructor(public auth: AuthService) {}
+
+  ngOnInit(): void {
+    console.log('Accueil init — username:', this.auth.getUsername(), 'role:', this.auth.getRole());
+  }
 }
