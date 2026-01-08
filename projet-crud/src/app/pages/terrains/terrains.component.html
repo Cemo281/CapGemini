@@ -1,2 +1,12 @@
-<app-terrain-creator (terrainCreated)="addTerrain($event)"></app-terrain-creator>
-<app-terrain-list></app-terrain-list>
+<!-- Removed the external action-bar button -->
+<app-terrain-list (addRequest)="openModal()" (editRequest)="openModal($event)"></app-terrain-list>
+
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ selectedTerrain ? 'Modifier le Terrain' : 'Nouveau Terrain' }}</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    <app-terrain-creator *ngIf="showModal" [terrainToEdit]="selectedTerrain" (terrainCreated)="onTerrainCreated($event)"></app-terrain-creator>
+  </div>
+</div>

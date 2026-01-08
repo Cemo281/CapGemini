@@ -1,13 +1,25 @@
-<div class="app-container">
-  <h2>Créer une Coordonnée</h2>
+<div class="form-container">
+  <h2>{{ id ? 'Modifier la Coordonnée' : 'Créer une Coordonnée' }}</h2>
 
-  <form #coordonneeForm="ngForm" (ngSubmit)="createCoordonnee(coordonneeForm)">
+  <form #coordonneeForm="ngForm" (ngSubmit)="submitForm(coordonneeForm)">
     <label for="lat">Latitude :</label>
     <input id="lat" placeholder="Latitude" [(ngModel)]="latitude" type="text" name="latitude" required />
 
     <label for="long">Longitude :</label>
     <input id="long" placeholder="Longitude" [(ngModel)]="longitude" type="text" name="longitude" required />
 
-    <button type="submit">Créer</button>
-  </form>
-</div>
+        <button type="submit">{{ id ? 'Mettre à jour' : 'Créer' }}</button>
+
+        
+
+        <div *ngIf="errorMessage" class="error-msg" style="margin-top: 15px; color: var(--danger-color); font-weight: 500; text-align: center; padding: 10px; border: 1px solid var(--danger-color); border-radius: 4px; background-color: rgba(217, 48, 37, 0.05);">
+
+            {{ errorMessage }}
+
+        </div>
+
+      </form>
+
+    </div>
+
+    

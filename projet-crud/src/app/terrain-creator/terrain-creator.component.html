@@ -1,7 +1,7 @@
-<div class="app-container">
-  <h2>Créer un Terrain</h2>
+<div class="form-container">
+  <h2>{{ id ? 'Modifier le Terrain' : 'Créer un Terrain' }}</h2>
 
-  <form #terrainForm="ngForm" (ngSubmit)="createTerrain(terrainForm)">
+  <form #terrainForm="ngForm" (ngSubmit)="submitForm(terrainForm)">
     <label for="nom">Nom :</label>
     <input id="nom" placeholder="Nom" [(ngModel)]="nom" name="nom" type="text" required />
 
@@ -12,13 +12,21 @@
     <input id="qua" placeholder="Quantité" [(ngModel)]="quantite" name="quantite" type="text" required />
 
     <label>Coordonnées :</label>
-    <div class="coordonnees">
-      <label for="lat">Latitude :</label>
-      <input id="lat" placeholder="Latitude" [(ngModel)]="latitude" type="text" name="latitude" required />
-      <label for="long">Longitude :</label>
-      <input id="long" placeholder="Longitude" [(ngModel)]="longitude" type="text" name="longitude" required />
+    <div class="coordonnees" style="display: flex; gap: 10px;">
+      <div style="flex: 1;">
+        <label for="lat">Latitude :</label>
+        <input id="lat" placeholder="Latitude" [(ngModel)]="latitude" type="text" name="latitude" required />
+      </div>
+      <div style="flex: 1;">
+        <label for="long">Longitude :</label>
+        <input id="long" placeholder="Longitude" [(ngModel)]="longitude" type="text" name="longitude" required />
+      </div>
     </div>
 
-    <button type="submit">Créer</button>
+    <button type="submit">{{ id ? 'Mettre à jour' : 'Créer' }}</button>
+
+    <div *ngIf="errorMessage" class="error-msg">
+        {{ errorMessage }}
+    </div>
   </form>
 </div>

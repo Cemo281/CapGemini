@@ -1,5 +1,8 @@
 <div class="table-container">
-  <h2>Liste des Utilisateurs</h2>
+  <div class="list-header-row">
+    <h2>Liste des Utilisateurs</h2>
+    <button class="btn-primary" (click)="onAddClick()">+ Ajouter un Utilisateur</button>
+  </div>
   
   @if (loading) {
     <p class="loading">Chargement des utilisateurs...</p>
@@ -35,8 +38,9 @@
           <td>{{ utilisateur.mail }}</td>
           <td>{{ utilisateur.username }}</td>
           <td>{{ utilisateur.role }}</td>
-          <td>
-            <button class="delete-btn" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
+          <td class="actions-cell">
+            <button class="btn-sm btn-secondary" (click)="onEditClick(utilisateur)">Modifier</button>
+            <button class="btn-sm btn-danger" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
           </td>
         </tr>
         }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-12T15:31:57+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.1 (Oracle Corporation)"
+    date = "2026-01-07T20:40:46+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251118-1623, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class CoordonneeMapperImpl implements CoordonneeMapper {
@@ -22,8 +22,8 @@ public class CoordonneeMapperImpl implements CoordonneeMapper {
         CoordonneeDTO coordonneeDTO = new CoordonneeDTO();
 
         coordonneeDTO.setId( Entity.getId() );
-        coordonneeDTO.setLongitude( Entity.getLongitude() );
         coordonneeDTO.setLatitude( Entity.getLatitude() );
+        coordonneeDTO.setLongitude( Entity.getLongitude() );
 
         return coordonneeDTO;
     }

@@ -13,6 +13,7 @@ public class CoordonneeService {
 
     @Autowired
     private CoordonneeRepository coordonneeRepository;
+
     public Coordonnee addCoordonnee(Coordonnee coordonnee) {
         return coordonneeRepository.save(coordonnee);
     }

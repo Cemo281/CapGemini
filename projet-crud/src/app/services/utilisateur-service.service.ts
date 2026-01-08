@@ -20,6 +20,14 @@ export class UtilisateurService {
     );
   }
 
+  updateUtilisateur(id: number, utilisateur: UtilisateurDTO) {
+    console.log('Sending PUT request to', `${this.apiUrl}/${id}`, 'with data:', utilisateur);
+    return this.http.put<UtilisateurDTO>(`${this.apiUrl}/${id}`, utilisateur).pipe(
+      tap(response => console.log('PUT response:', response)),
+      catchError(this.handleError)
+    );
+  }
+
   getUtilisateurs() {
     console.log('Sending GET request to', this.apiUrl);
     return this.http.get<UtilisateurDTO[]>(this.apiUrl).pipe(

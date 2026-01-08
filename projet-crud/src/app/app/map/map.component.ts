@@ -8,6 +8,11 @@ import { TerrainDTO } from '../../models/TerrainDTO';
 // Import Leaflet CSS
 import 'leaflet/dist/leaflet.css';
 
+interface MapItem {
+  terrainName: string;
+  coord: CoordonneeDTO;
+}
+
 @Component({
   selector: 'app-map',
   standalone: true,
@@ -20,9 +25,10 @@ export class MapComponent implements OnInit {
 
   private map!: L.Map;
   private coordMarkers: L.Marker[] = [];
-  coordinates: CoordonneeDTO[] = [];
+  mapItems: MapItem[] = []; // Changed from coordinates: CoordonneeDTO[]
   loading = true;
   error: string | null = null;
+  isExpanded = false;
 
   constructor(private terrainService: TerrainService) {}
 
@@ -53,10 +59,14 @@ export class MapComponent implements OnInit {
     this.terrainService.getTerrains().subscribe({
       next: (terrains: TerrainDTO[]) => {
         console.log('Terrains loaded:', terrains);
+        this.mapItems = []; // Reset
         terrains.forEach((terrain: TerrainDTO) => {
           if (terrain.coordonnees) {
             console.log('Adding marker for:', terrain.nom, terrain.coordonnees);
-            this.coordinates.push(terrain.coordonnees);
+            this.mapItems.push({
+              terrainName: terrain.nom,
+              coord: terrain.coordonnees
+            });
             this.addMarkerToMap(terrain.coordonnees, terrain.nom);
           }
         });
@@ -99,6 +109,26 @@ export class MapComponent implements OnInit {
     if (this.coordMarkers.length > 0) {
       const group = new L.FeatureGroup(this.coordMarkers);
       this.map.fitBounds(group.getBounds());
+    }
+  }
+
+  toggleExpand(): void {
+    this.isExpanded = !this.isExpanded;
+    // Leaflet needs to know the container size changed
+    setTimeout(() => {
+      this.map.invalidateSize({ animate: true });
+    }, 300); // Match CSS transition time
+  }
+
+  focusOnCoord(coord: CoordonneeDTO): void {
+    if (this.map && coord.latitude && coord.longitude) {
+      const lat = parseFloat(coord.latitude);
+      const lng = parseFloat(coord.longitude);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        this.map.setView([lat, lng], 18, { animate: true });
+        // Optional: Open the popup for this marker if we can find it
+        // Note: We need a way to link the coordinate to the marker
+      }
     }
   }
 }

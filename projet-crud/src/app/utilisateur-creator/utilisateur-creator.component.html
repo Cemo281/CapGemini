@@ -1,7 +1,7 @@
-<div class="app-container">
-  <h2>Créer un Utilisateur</h2>
+<div class="form-container">
+  <h2>{{ id ? 'Modifier l\'Utilisateur' : 'Créer un Utilisateur' }}</h2>
 
-  <form #utilisateurForm="ngForm" (ngSubmit)="createUtilisateur(utilisateurForm)">
+  <form #utilisateurForm="ngForm" (ngSubmit)="submitForm(utilisateurForm)">
     <label for="nom">Nom :</label>
     <input id="nom" placeholder="Nom" [(ngModel)]="nom" name="nom" type="text" required />
 
@@ -12,7 +12,7 @@
     <input id="mail" placeholder="Email" [(ngModel)]="mail" name="mail" type="email" required />
 
     <label for="password">Mot de passe :</label>
-    <input id="password" placeholder="Mot de passe" [(ngModel)]="password" name="password" type="password" required />
+    <input id="password" placeholder="{{ id ? 'Laisser vide pour ne pas changer' : 'Mot de passe' }}" [(ngModel)]="password" name="password" type="password" [required]="!id" />
 
     <label for="username">Nom d'utilisateur :</label>
     <input id="username" placeholder="Nom d'utilisateur" [(ngModel)]="username" name="username" type="text" required />
@@ -23,6 +23,18 @@
       <option value="ADMIN">ADMIN</option>
     </select>
 
-    <button type="submit">Créer</button>
-  </form>
-</div>
+        <button type="submit">{{ id ? 'Mettre à jour' : 'Créer' }}</button>
+
+        
+
+        <div *ngIf="errorMessage" class="error-msg" style="margin-top: 15px; color: var(--danger-color); font-weight: 500; text-align: center; padding: 10px; border: 1px solid var(--danger-color); border-radius: 4px; background-color: rgba(217, 48, 37, 0.05);">
+
+            {{ errorMessage }}
+
+        </div>
+
+      </form>
+
+    </div>
+
+    

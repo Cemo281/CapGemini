@@ -15,12 +15,22 @@ export class CoordonneeListComponent implements OnInit {
   loading = true;
   error: string | null = null;
   @Output() coordonneeDeleted = new EventEmitter<number>();
+  @Output() addRequest = new EventEmitter<void>();
+  @Output() editRequest = new EventEmitter<CoordonneeDTO>();
 
   constructor(private coordonneeService: CoordonneeService) {}
 
   ngOnInit() {
     console.log('CoordonneeListComponent initialized, calling loadCoordonnees()');
     this.loadCoordonnees();
+  }
+
+  onAddClick() {
+    this.addRequest.emit();
+  }
+  
+  onEditClick(item: CoordonneeDTO) {
+    this.editRequest.emit(item);
   }
 
   loadCoordonnees() {

@@ -20,6 +20,14 @@ export class TerrainService {
     );
   }
 
+  updateTerrain(id: number, terrain: TerrainDTO) {
+    console.log('Sending PUT request to', `${this.apiUrl}/${id}`, 'with data:', terrain);
+    return this.http.put<TerrainDTO>(`${this.apiUrl}/${id}`, terrain).pipe(
+      tap(response => console.log('PUT response:', response)),
+      catchError(this.handleError)
+    );
+  }
+
   getTerrains() {
     console.log('Sending GET request to', this.apiUrl);
     return this.http.get<TerrainDTO[]>(this.apiUrl).pipe(

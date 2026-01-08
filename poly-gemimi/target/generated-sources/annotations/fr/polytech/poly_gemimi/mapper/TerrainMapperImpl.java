@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-12-12T15:31:57+0100",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 25.0.1 (Oracle Corporation)"
+    date = "2026-01-07T20:40:46+0100",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.44.0.v20251118-1623, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class TerrainMapperImpl implements TerrainMapper {
@@ -25,11 +25,11 @@ public class TerrainMapperImpl implements TerrainMapper {
 
         TerrainDTO terrainDTO = new TerrainDTO();
 
+        terrainDTO.setCoordonnees( coordonneeMapper.toDto( terrain.getCoordonnees() ) );
+        terrainDTO.setDescription( terrain.getDescription() );
         terrainDTO.setId( terrain.getId() );
         terrainDTO.setNom( terrain.getNom() );
         terrainDTO.setQuantite( terrain.getQuantite() );
-        terrainDTO.setDescription( terrain.getDescription() );
-        terrainDTO.setCoordonnees( coordonneeMapper.toDto( terrain.getCoordonnees() ) );
 
         return terrainDTO;
     }
@@ -42,11 +42,11 @@ public class TerrainMapperImpl implements TerrainMapper {
 
         Terrain terrain = new Terrain();
 
+        terrain.setCoordonnees( coordonneeMapper.toEntity( dto.getCoordonnees() ) );
+        terrain.setDescription( dto.getDescription() );
         terrain.setId( dto.getId() );
         terrain.setNom( dto.getNom() );
         terrain.setQuantite( dto.getQuantite() );
-        terrain.setDescription( dto.getDescription() );
-        terrain.setCoordonnees( coordonneeMapper.toEntity( dto.getCoordonnees() ) );
 
         return terrain;
     }

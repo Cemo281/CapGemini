@@ -1,59 +1,90 @@
-
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { TerrainDTO } from '../models/TerrainDTO';
 import { TerrainService } from '../services/terrain-service.service';
+import { CoordonneeDTO } from '../models/CoordonneeDTO';
 import { FormsModule } from '@angular/forms';
 import { NgForm } from '@angular/forms'
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-terrain-creator',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './terrain-creator.component.html',
   styleUrls: ['./terrain-creator.component.css']
 })
-export class TerrainCreatorComponent {
+export class TerrainCreatorComponent implements OnChanges {
+  @Input() terrainToEdit: TerrainDTO | null = null;
+  @Output() terrainCreated = new EventEmitter<TerrainDTO>();
+
+  id: number | undefined;
   nom = '';
   quantite = '';
   description = '';
   latitude = '';
   longitude = '';
-
-  @Output() terrainCreated = new EventEmitter<TerrainDTO>();
+  errorMessage: string | null = null;
 
   constructor(private terrainService: TerrainService) {}
 
-  createTerrain(form: NgForm) {
-    const newTerrain: TerrainDTO = {
+  ngOnChanges(changes: SimpleChanges): void {
+    this.errorMessage = null;
+    if (changes['terrainToEdit'] && this.terrainToEdit) {
+      // Edit mode
+      this.id = this.terrainToEdit.id;
+      this.nom = this.terrainToEdit.nom;
+      this.quantite = this.terrainToEdit.quantite.toString();
+      this.description = this.terrainToEdit.description;
+      
+      if (this.terrainToEdit.coordonnees) {
+        this.latitude = this.terrainToEdit.coordonnees.latitude;
+        this.longitude = this.terrainToEdit.coordonnees.longitude;
+      }
+    } else if (changes['terrainToEdit'] && !this.terrainToEdit) {
+      this.resetForm();
+    }
+  }
+
+  submitForm(form: NgForm) {
+    this.errorMessage = null;
+    
+    const coordData: CoordonneeDTO = {
+        latitude: this.latitude,
+        longitude: this.longitude
+    };
+
+    const terrainData: TerrainDTO = {
       nom: this.nom,
       quantite: Number(this.quantite),
       description: this.description,
-      coordonnees: {
-        latitude: this.latitude,
-        longitude: this.longitude
-      }
+      coordonnees: coordData
     };
 
-    this.terrainService.createTerrain(newTerrain).subscribe({
-      next: (terrain) => {
-        console.log('Terrain créé:', terrain);
-        alert(`✓ Terrain créé avec succès: ${terrain.nom}`);
-        this.terrainCreated.emit(terrain);
-        form.resetForm();
-        this.resetForm();
-      },
-      error: (err) => {
-        console.error('Erreur lors de la création du terrain', err);
-        alert(`✗ Erreur lors de la création: ${err.message}`);
-      }
-    });
+    const observer = {
+        next: (terrain: TerrainDTO) => {
+          this.terrainCreated.emit(terrain);
+          this.resetForm();
+        },
+        error: (err: Error) => {
+          console.error('Erreur', err);
+          this.errorMessage = err.message || "Une erreur est survenue";
+        }
+    };
+
+    if (this.id) {
+      this.terrainService.updateTerrain(this.id, terrainData).subscribe(observer);
+    } else {
+      this.terrainService.createTerrain(terrainData).subscribe(observer);
+    }
   }
 
   resetForm() {
+    this.id = undefined;
     this.nom = '';
     this.quantite = '';
     this.description = '';
     this.latitude = '';
     this.longitude = '';
+    this.errorMessage = null;
   }
 }

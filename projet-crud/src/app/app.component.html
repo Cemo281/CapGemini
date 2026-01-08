@@ -1,1 +1,29 @@
-<router-outlet></router-outlet>
+<header class="app-header">
+  <div class="container header-content">
+    <div class="brand">
+      <h1>{{ pageTitle }}</h1>
+      <p class="subtitle" *ngIf="showSubtitle">Gestion des terrains, coordonnées et utilisateurs</p>
+    </div>
+
+    <nav class="main-nav" *ngIf="authService.isAuthenticated()">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
+      <a routerLink="/terrains" routerLinkActive="active">Terrains</a>
+      <a routerLink="/coordonnees" routerLinkActive="active">Coordonnées</a>
+      <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
+      <a (click)="logout()" class="logout" style="cursor: pointer;">Se déconnecter</a>
+      <button class="theme-toggle-btn" (click)="toggleTheme()">
+        {{ isDarkMode ? '☀️' : '🌙' }}
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">© 2026 PolyGEMIMI — Projet de démonstration</div>
+</footer>

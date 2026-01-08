@@ -24,7 +24,15 @@ public class UtilisateurService {
     public void updateUtilisateur(Long id, Utilisateur utilisateur) {
         Utilisateur existingUtilisateur = utilisateurRepository.findById(id).orElseThrow(() -> new RuntimeException("Utilisateur not found"));
         existingUtilisateur.setNom(utilisateur.getNom());
+        existingUtilisateur.setPrenom(utilisateur.getPrenom());
         existingUtilisateur.setMail(utilisateur.getMail());
+        existingUtilisateur.setUsername(utilisateur.getUsername());
+        existingUtilisateur.setRole(utilisateur.getRole());
+        
+        if (utilisateur.getPassword() != null && !utilisateur.getPassword().isEmpty()) {
+            existingUtilisateur.setPassword(utilisateur.getPassword());
+        }
+        
         utilisateurRepository.save(existingUtilisateur);
     }
 

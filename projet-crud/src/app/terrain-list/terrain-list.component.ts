@@ -15,12 +15,23 @@ export class TerrainListComponent implements OnInit {
   loading = true;
   error: string | null = null;
   @Output() terrainDeleted = new EventEmitter<number>();
+  @Output() addRequest = new EventEmitter<void>();
+  @Output() editRequest = new EventEmitter<TerrainDTO>();
 
   constructor(private terrainService: TerrainService) {}
 
   ngOnInit() {
     console.log('TerrainListComponent initialized, calling loadTerrains()');
     this.loadTerrains();
+  }
+
+  onAddClick() {
+    this.addRequest.emit();
+  }
+
+  onEditClick(terrain: TerrainDTO) {
+    console.log("Edit requested for", terrain);
+    this.editRequest.emit(terrain);
   }
 
   loadTerrains() {

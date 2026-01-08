@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { UtilisateurDTO } from '../models/UtilisateurDTO';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilisateurService } from '../services/utilisateur-service.service';
+import { UtilisateurDTO } from '../models/UtilisateurDTO';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,57 +12,56 @@ import { CommonModule } from '@angular/common';
 })
 export class UtilisateurListComponent implements OnInit {
   utilisateurs: UtilisateurDTO[] = [];
-  loading = true;
-  error: string | null = null;
+  loading = false;
+  error = '';
+  
   @Output() utilisateurDeleted = new EventEmitter<number>();
+  @Output() addRequest = new EventEmitter<void>();
+  @Output() editRequest = new EventEmitter<UtilisateurDTO>();
 
   constructor(private utilisateurService: UtilisateurService) {}
 
-  ngOnInit() {
-    console.log('UtilisateurListComponent initialized, calling loadUtilisateurs()');
+  ngOnInit(): void {
     this.loadUtilisateurs();
+  }
+
+  onAddClick() {
+    this.addRequest.emit();
+  }
+  
+  onEditClick(item: UtilisateurDTO) {
+    this.editRequest.emit(item);
   }
 
   loadUtilisateurs() {
     this.loading = true;
-    this.error = null;
-    console.log('loadUtilisateurs() called');
-    
+    this.error = '';
     this.utilisateurService.getUtilisateurs().subscribe({
-      next: (utilisateurs) => {
-        console.log('Successfully loaded utilisateurs:', utilisateurs);
-        this.utilisateurs = utilisateurs;
+      next: (data) => {
+        this.utilisateurs = data;
         this.loading = false;
-        console.log('utilisateurs array updated, length:', this.utilisateurs.length);
       },
       error: (err) => {
-        console.error('Error loading utilisateurs:', err);
-        this.error = 'Failed to load utilisateurs: ' + err.message;
+        this.error = 'Erreur lors du chargement des utilisateurs';
         this.loading = false;
       }
     });
   }
 
-  refreshList() {
-    console.log('refreshList() called from parent');
+  refreshList(): void {
     this.loadUtilisateurs();
   }
 
   deleteUtilisateur(id: number | undefined) {
-    if (id === undefined) {
-      console.error('ID est undefined');
-      return;
-    }
-    console.log('Deleting utilisateur with id:', id);
+    if (id === undefined) return;
+    
     this.utilisateurService.deleteUtilisateur(id).subscribe({
       next: () => {
-        console.log('Utilisateur supprimé');
         this.utilisateurDeleted.emit(id);
         this.loadUtilisateurs();
       },
       error: (err) => {
-        console.error('Erreur lors de la suppression', err);
-        this.error = 'Failed to delete: ' + err.message;
+        this.error = 'Erreur lors de la suppression';
       }
     });
   }

@@ -1,55 +1,39 @@
-<header class="hero">
-  <div class="container">
-    <div class="brand">
-      <h1>PolyGEMIMI</h1>
-      <p class="subtitle">Gestion des terrains, coordonnées et utilisateurs</p>
-    </div>
+<div class="hero-cards">
+  <a class="card-link" routerLink="/terrains">
+    <div class="icon">⚽</div>
+    <h3>Terrains</h3>
+    <p>Voir et créer des terrains</p>
+  </a>
 
-    <nav class="main-nav">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Accueil</a>
-      <a routerLink="/terrains" routerLinkActive="active">Terrains</a>
-      <a routerLink="/coordonnees" routerLinkActive="active">Coordonnées</a>
-      <a routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
-      <a routerLink="/map" routerLinkActive="active">Carte</a>
-      <a routerLink="/login" class="logout">Se déconnecter</a>
-    </nav>
-  </div>
-</header>
+  <a class="card-link" routerLink="/coordonnees">
+    <div class="icon">📍</div>
+    <h3>Coordonnées</h3>
+    <p>Gérer les coordonnées</p>
+  </a>
 
-<main class="container main-content">
-  <section class="hero-cards">
-    <a class="card" routerLink="/terrains">
-      <div class="icon">⚽</div>
-      <h3>Terrains</h3>
-      <p>Voir et créer des terrains</p>
-    </a>
+  <a class="card-link" routerLink="/utilisateurs">
+    <div class="icon">👥</div>
+    <h3>Utilisateurs</h3>
+    <p>Consulter et modifier les utilisateurs</p>
+  </a>
+</div>
 
-    <a class="card" routerLink="/coordonnees">
-      <div class="icon">📍</div>
-      <h3>Coordonnées</h3>
-      <p>Gérer les coordonnées</p>
-    </a>
+<section class="map-section" style="margin-bottom: 32px;">
 
-    <a class="card" routerLink="/utilisateurs">
-      <div class="icon">👥</div>
-      <h3>Utilisateurs</h3>
-      <p>Consulter et modifier les utilisateurs</p>
-    </a>
+  
 
-    <a class="card" routerLink="/map">
-      <div class="icon">🗺️</div>
-      <h3>Carte</h3>
-      <p>Localiser les éléments sur la carte</p>
-    </a>
+    <h2>Carte des Terrains</h2>
+
+  
+
+    <app-map></app-map>
+
+  
+
   </section>
 
-  <section class="list-section">
-    <h2>Utilisateurs récents</h2>
-    <app-utilisateur-list></app-utilisateur-list>
-  </section>
-</main>
+  
 
-<footer class="site-footer">
-  <div class="container">© PolyGEMIMI — Projet de démonstration</div>
-</footer>
+  
 
+  
