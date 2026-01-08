@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { TerrainDTO } from '../../models/TerrainDTO';
 import { TerrainService } from '../../services/terrain-service.service';
+import { AuthService } from '../../auth/auth.service';
 import { TerrainCreatorComponent } from '../../terrain-creator/terrain-creator.component';
 import { TerrainListComponent } from '../../terrain-list/terrain-list.component';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-terrains',
@@ -16,8 +19,13 @@ export class TerrainsComponent {
   @ViewChild(TerrainListComponent) listComponent!: TerrainListComponent;
   showModal = false;
   selectedTerrain: TerrainDTO | null = null;
+  isAdmin$: Observable<boolean>;
 
-  constructor(private terrainService: TerrainService) {}
+  constructor(private terrainService: TerrainService, private authService: AuthService) {
+    this.isAdmin$ = this.authService.role$.pipe(
+      map(role => role === 'ADMIN' || role === 'admin')
+    );
+  }
 
   openModal(terrainToEdit?: TerrainDTO) {
     this.selectedTerrain = terrainToEdit || null;

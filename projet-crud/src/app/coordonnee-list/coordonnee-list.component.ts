@@ -1,7 +1,10 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CoordonneeDTO } from '../models/CoordonneeDTO';
 import { CoordonneeService } from '../services/coordonnee-service.service';
+import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-coordonnee-list',
@@ -14,11 +17,16 @@ export class CoordonneeListComponent implements OnInit {
   coordonnees: CoordonneeDTO[] = [];
   loading = true;
   error: string | null = null;
+  isAdmin$: Observable<boolean>;
   @Output() coordonneeDeleted = new EventEmitter<number>();
   @Output() addRequest = new EventEmitter<void>();
   @Output() editRequest = new EventEmitter<CoordonneeDTO>();
 
-  constructor(private coordonneeService: CoordonneeService) {}
+  constructor(private coordonneeService: CoordonneeService, private authService: AuthService) {
+    this.isAdmin$ = this.authService.role$.pipe(
+      map(role => role === 'ADMIN' || role === 'admin')
+    );
+  }
 
   ngOnInit() {
     console.log('CoordonneeListComponent initialized, calling loadCoordonnees()');
@@ -70,7 +78,7 @@ export class CoordonneeListComponent implements OnInit {
         this.coordonneeDeleted.emit(id);
         this.loadCoordonnees();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erreur lors de la suppression', err);
         this.error = 'Failed to delete: ' + err.message;
       }

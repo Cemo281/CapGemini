@@ -1,7 +1,9 @@
 <div class="table-container">
   <div class="list-header-row">
     <h2>Liste des Coordonnées</h2>
-    <button class="btn-primary" (click)="onAddClick()">+ Ajouter une Coordonnée</button>
+    @if (isAdmin$ | async) {
+      <button class="btn-primary" (click)="onAddClick()">+ Ajouter une Coordonnée</button>
+    }
   </div>
 
   @if (loading) {
@@ -23,7 +25,9 @@
           <th>ID</th>
           <th>Latitude</th>
           <th>Longitude</th>
-          <th>Actions</th>
+          @if (isAdmin$ | async) {
+            <th>Actions</th>
+          }
         </tr>
       </thead>
       <tbody>
@@ -32,10 +36,12 @@
           <td>{{ coordonnee.id }}</td>
           <td>{{ coordonnee.latitude }}</td>
           <td>{{ coordonnee.longitude }}</td>
-          <td class="actions-cell">
-            <button class="btn-sm btn-secondary" (click)="onEditClick(coordonnee)">Modifier</button>
-            <button class="btn-sm btn-danger" (click)="deleteCoordonnee(coordonnee.id)">Supprimer</button>
-          </td>
+          @if (isAdmin$ | async) {
+            <td class="actions-cell">
+              <button class="btn-sm btn-secondary" (click)="onEditClick(coordonnee)">Modifier</button>
+              <button class="btn-sm btn-danger" (click)="deleteCoordonnee(coordonnee.id)">Supprimer</button>
+            </td>
+          }
         </tr>
         }
       </tbody>

@@ -1,7 +1,10 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { TerrainDTO } from '../models/TerrainDTO';
 import { TerrainService } from '../services/terrain-service.service';
+import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-terrain-list',
@@ -14,11 +17,21 @@ export class TerrainListComponent implements OnInit {
   terrains: TerrainDTO[] = [];
   loading = true;
   error: string | null = null;
+  isAdmin$: Observable<boolean>;
   @Output() terrainDeleted = new EventEmitter<number>();
   @Output() addRequest = new EventEmitter<void>();
   @Output() editRequest = new EventEmitter<TerrainDTO>();
 
-  constructor(private terrainService: TerrainService) {}
+  constructor(private terrainService: TerrainService, private authService: AuthService) {
+    this.isAdmin$ = this.authService.role$.pipe(
+      map(role => {
+        const isAdmin = role === 'ADMIN' || role === 'admin';
+        console.log('TerrainListComponent - role changed to:', role, '- isAdmin:', isAdmin);
+        return isAdmin;
+      })
+    );
+    console.log('TerrainListComponent constructor - isAdmin$ Observable created');
+  }
 
   ngOnInit() {
     console.log('TerrainListComponent initialized, calling loadTerrains()');

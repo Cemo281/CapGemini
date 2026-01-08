@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilisateurService } from '../services/utilisateur-service.service';
+import { AuthService } from '../auth/auth.service';
 import { UtilisateurDTO } from '../models/UtilisateurDTO';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-utilisateur-list',
@@ -14,12 +17,17 @@ export class UtilisateurListComponent implements OnInit {
   utilisateurs: UtilisateurDTO[] = [];
   loading = false;
   error = '';
+  isAdmin$: Observable<boolean>;
   
   @Output() utilisateurDeleted = new EventEmitter<number>();
   @Output() addRequest = new EventEmitter<void>();
   @Output() editRequest = new EventEmitter<UtilisateurDTO>();
 
-  constructor(private utilisateurService: UtilisateurService) {}
+  constructor(private utilisateurService: UtilisateurService, private authService: AuthService) {
+    this.isAdmin$ = this.authService.role$.pipe(
+      map(role => role === 'ADMIN' || role === 'admin')
+    );
+  }
 
   ngOnInit(): void {
     this.loadUtilisateurs();

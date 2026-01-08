@@ -32,7 +32,16 @@ export class AppComponent implements OnInit {
 
   isDarkMode = false;
 
-  constructor(private router: Router, public authService: AuthService) {}
+  constructor(private router: Router, public authService: AuthService) {
+    // Initialize role if token exists (e.g., on page refresh)
+    if (this.authService.isAuthenticated()) {
+      const token = this.authService.getToken();
+      if (token && !this.authService.getRole()) {
+        // Decode token to get role if not already stored
+        (this.authService as any).decodeAndStoreRole(token);
+      }
+    }
+  }
 
   ngOnInit() {
     this.router.events.pipe(
