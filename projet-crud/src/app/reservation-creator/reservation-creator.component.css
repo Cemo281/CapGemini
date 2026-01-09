@@ -1,0 +1,6 @@
+.creator-container { padding: 12px; }
+.error { color: red; }
+form label { display:block; margin-top:8px; }
+select, textarea { width:100%; }
+.actions { margin-top:10px; }
+.actions button { margin-right:8px; }

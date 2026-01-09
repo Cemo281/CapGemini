@@ -1,56 +1,40 @@
 <div class="table-container">
   <div class="list-header-row">
     <h2>Liste des Utilisateurs</h2>
-    @if (isAdmin$ | async) {
-      <button class="btn-primary" (click)="onAddClick()">+ Ajouter un Utilisateur</button>
-    }
+    <button *ngIf="isAdmin$ | async" class="btn-primary" (click)="onAddClick()">+ Ajouter un Utilisateur</button>
   </div>
-  
-  @if (loading) {
-    <p class="loading">Chargement des utilisateurs...</p>
-  }
-  
-  @if (error) {
-    <p class="error">{{ error }}</p>
-  }
-  
-  @if (!loading && utilisateurs.length === 0 && !error) {
-    <p class="no-data">Aucun utilisateur trouvé</p>
-  }
-  
-  @if (!loading && utilisateurs.length > 0) {
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Email</th>
-          <th>Nom d'utilisateur</th>
-          <th>Rôle</th>
-          @if (isAdmin$ | async) {
-            <th>Actions</th>
-          }
-        </tr>
-      </thead>
-      <tbody>
-        @for(utilisateur of utilisateurs; track utilisateur.id) {
-        <tr>
-          <td>{{ utilisateur.id }}</td>
-          <td>{{ utilisateur.nom }}</td>
-          <td>{{ utilisateur.prenom }}</td>
-          <td>{{ utilisateur.mail }}</td>
-          <td>{{ utilisateur.username }}</td>
-          <td>{{ utilisateur.role }}</td>
-          @if (isAdmin$ | async) {
-            <td class="actions-cell">
-              <button class="btn-sm btn-secondary" (click)="onEditClick(utilisateur)">Modifier</button>
-              <button class="btn-sm btn-danger" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
-            </td>
-          }
-        </tr>
-        }
-      </tbody>
-    </table>
-  }
+
+  <p *ngIf="loading" class="loading">Chargement des utilisateurs...</p>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <p *ngIf="!loading && utilisateurs.length === 0 && !error" class="no-data">Aucun utilisateur trouvé</p>
+
+  <table *ngIf="!loading && utilisateurs.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Nom d'utilisateur</th>
+        <th>Rôle</th>
+        <th *ngIf="isAdmin$ | async">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let utilisateur of utilisateurs">
+        <td>{{ utilisateur.id }}</td>
+        <td>{{ utilisateur.nom }}</td>
+        <td>{{ utilisateur.prenom }}</td>
+        <td>{{ utilisateur.mail }}</td>
+        <td>{{ utilisateur.username }}</td>
+        <td>{{ utilisateur.role }}</td>
+        <td *ngIf="isAdmin$ | async" class="actions-cell">
+          <button class="btn-sm btn-secondary" (click)="onEditClick(utilisateur)">Modifier</button>
+          <button class="btn-sm btn-danger" (click)="deleteUtilisateur(utilisateur.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

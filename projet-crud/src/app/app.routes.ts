@@ -4,6 +4,7 @@ import { AccueilComponent } from './pages/accueil/accueil.component'
 import { TerrainsComponent } from './pages/terrains/terrains.component';
 import { CoordonneesComponent } from './pages/coordonnees/coordonnees.component';
 import { UtilisateursComponent } from './pages/utilisateurs/utilisateurs.component';
+import { ReservationsComponent } from './pages/reservations/reservations.component';
 import { LoginComponent } from './auth/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { MapComponent } from './app/map/map.component';
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path : 'terrains', component : TerrainsComponent, canActivate: [AuthGuard] },
   { path : 'coordonnees', component : CoordonneesComponent, canActivate: [AuthGuard] },
   { path : 'utilisateurs', component : UtilisateursComponent, canActivate: [AuthGuard] },
+  { path : 'reservations', component : ReservationsComponent, canActivate: [AuthGuard] },
   { path : 'map', component : MapComponent, canActivate: [AuthGuard] }
 ];

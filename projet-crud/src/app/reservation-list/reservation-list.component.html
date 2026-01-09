@@ -1,0 +1,39 @@
+<div class="table-container">
+  <div class="list-header-row">
+    <h2>Liste des Réservations</h2>
+    <button *ngIf="isAdmin$ | async" class="btn-primary" (click)="onAddClick()">+ Ajouter une Réservation</button>
+  </div>
+
+  <p *ngIf="loading" class="loading">Chargement des réservations...</p>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <p *ngIf="!loading && reservations.length === 0 && !error" class="no-data">Aucune réservation trouvée</p>
+
+  <table *ngIf="!loading && reservations.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Utilisateur</th>
+        <th>Terrains</th>
+        <th *ngIf="isAdmin$ | async">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.utilisateur.username || reservation.utilisateur.nom }}</td>
+        <td>
+          <ng-container *ngIf="reservation.terrains && reservation.terrains.length > 0; else none">
+            <span *ngFor="let t of reservation.terrains; let last = last">{{ t.nom }}<span *ngIf="!last">, </span></span>
+          </ng-container>
+          <ng-template #none>—</ng-template>
+        </td>
+        <td *ngIf="isAdmin$ | async" class="actions-cell">
+          <button class="btn-sm btn-secondary" (click)="onEditClick(reservation)">Modifier</button>
+          <button class="btn-sm btn-danger" (click)="deleteReservation(reservation.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
