@@ -1,56 +1,38 @@
 <div class="table-container">
-  <!-- Header row inside the list container -->
   <div class="list-header-row">
     <h2>Liste des Terrains</h2>
-    <!-- Debug: isAdmin$ = {{ isAdmin$ | async }} -->
-    @if (isAdmin$ | async) {
-      <button class="btn-primary" (click)="onAddClick()">+ Ajouter un Terrain</button>
-    }
+    <button *ngIf="isAdmin$ | async" class="btn-primary" (click)="onAddClick()">+ Ajouter un Terrain</button>
   </div>
-  
-  @if (loading) {
-    <p class="loading">Chargement des terrains...</p>
-  }
-  
-  @if (error) {
-    <p class="error">{{ error }}</p>
-  }
-  
-  @if (!loading && terrains.length === 0 && !error) {
-    <p class="no-data">Aucun terrain trouvé</p>
-  }
-  
-  @if (!loading && terrains.length > 0) {
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nom</th>
-          <th>Description</th>
-          <th>Quantité</th>
-          <th>Position</th>
-          @if (isAdmin$ | async) {
-            <th>Actions</th>
-          }
-        </tr>
-      </thead>
-      <tbody>
-        @for(terrain of terrains; track terrain.id) {
-        <tr>
-          <td>{{ terrain.id }}</td>
-          <td>{{ terrain.nom }}</td>
-          <td>{{ terrain.description }}</td>
-          <td>{{ terrain.quantite }}</td>
-          <td>{{ terrain.coordonnees.latitude }}, {{ terrain.coordonnees.longitude }}</td>
-          @if (isAdmin$ | async) {
-            <td class="actions-cell">
-              <button class="btn-sm btn-secondary" (click)="onEditClick(terrain)">Modifier</button>
-              <button class="btn-sm btn-danger" (click)="deleteTerrain(terrain.id)">Supprimer</button>
-            </td>
-          }
-        </tr>
-        }
-      </tbody>
-    </table>
-  }
+
+  <p *ngIf="loading" class="loading">Chargement des terrains...</p>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <p *ngIf="!loading && terrains.length === 0 && !error" class="no-data">Aucun terrain trouvé</p>
+
+  <table *ngIf="!loading && terrains.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Quantité</th>
+        <th>Position</th>
+        <th *ngIf="isAdmin$ | async">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let terrain of terrains">
+        <td>{{ terrain.id }}</td>
+        <td>{{ terrain.nom }}</td>
+        <td>{{ terrain.description }}</td>
+        <td>{{ terrain.quantite }}</td>
+        <td>{{ terrain.coordonnees.latitude }}, {{ terrain.coordonnees.longitude }}</td>
+        <td *ngIf="isAdmin$ | async" class="actions-cell">
+          <button class="btn-sm btn-secondary" (click)="onEditClick(terrain)">Modifier</button>
+          <button class="btn-sm btn-danger" (click)="deleteTerrain(terrain.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,0 +1,12 @@
+<div class="page-container">
+  <app-reservation-list (addRequest)="openModal()" (editRequest)="openModal($event)"></app-reservation-list>
+
+  @if(showModal) {
+    <div class="modal">
+      <div class="modal-content">
+        <app-reservation-creator [reservationToEdit]="selectedReservation" (reservationCreated)="onReservationCreated($event)"></app-reservation-creator>
+        <button class="btn-close" (click)="closeModal()">Fermer</button>
+      </div>
+    </div>
+  }
+</div>

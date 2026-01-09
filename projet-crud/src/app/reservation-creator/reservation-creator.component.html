@@ -1,0 +1,24 @@
+<div class="creator-container">
+  <h3>@if(isEditMode){Modifier la réservation}@if(!isEditMode){Nouvelle réservation}</h3>
+  @if(errorMessage){
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <label>Utilisateur</label>
+    <select formControlName="utilisateurId">
+      <option [ngValue]="undefined">-- Choisir --</option>
+      <option *ngFor="let u of utilisateurs" [ngValue]="u.id">{{ u.username || u.nom }}</option>
+    </select>
+
+    <label>Terrains (sélection multiple)</label>
+    <select formControlName="terrainsIds" multiple size="5">
+      <option *ngFor="let t of terrains" [ngValue]="t.id">{{ t.nom }}</option>
+    </select>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Enregistrer</button>
+      <button type="button" class="btn-secondary" (click)="resetForm()">Annuler</button>
+    </div>
+  </form>
+</div>
